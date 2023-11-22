@@ -37,10 +37,23 @@ export default function Home () {
   const isReachingEnd = isEmpty || (data && data[data.length - 1]?.length < 2)
   const isRefreshing = isValidating && data && data.length === size
  
-  return <div>
-    <p>{orders.length} orders listed</p>
-    {isEmpty ? <p>Yay, no orders found.</p> : null}
-    {orders.map((order:any) => <div key={order._id}>{order.name}</div>)}
+  return <div className="flex flex-col gap-3 w-full p-4">
+    <div className="flex justify-between">
+      <p>{orders.length} orders listed</p>
+      <button disabled={isRefreshing} onClick={() => mutate()}>
+        {isRefreshing ? "refreshing..." : "refresh"}
+      </button>
+    </div>
+    <div className="flex flex-col gap-4">
+      {isEmpty ? <p>Yay, no orders found.</p> : null}
+      {orders.map((order:any) =>
+        <div 
+          key={order._id}
+          className="rounded-xl border flex items-center justify-center shadow-lg p-4"
+        >
+          {order.name}
+        </div>)}
+    </div>
     <button
       disabled={isLoadingMore || isReachingEnd}
       onClick={() => setSize(size + 1)}
@@ -50,9 +63,6 @@ export default function Home () {
         : isReachingEnd
         ? "no more issues"
         : "load more"}
-    </button>
-    <button disabled={isRefreshing} onClick={() => mutate()}>
-      {isRefreshing ? "refreshing..." : "refresh"}
     </button>
   </div>
 }
