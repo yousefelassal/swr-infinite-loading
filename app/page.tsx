@@ -58,6 +58,7 @@ export default function Home () {
         </div>)}
     </div>
     <button
+      className="rounded-xl text-white border border-slate-500 p-4 bg-slate-600 hover:bg-slate-700 hover:border-slate-600 transition-all disabled:bg-slate-400 disabled:border-slate-400 disabled:cursor-not-allowed"
       disabled={isLoadingMore || isReachingEnd}
       onClick={() => setSize(size + 1)}
     >
