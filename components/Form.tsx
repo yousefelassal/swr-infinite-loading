@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { useFormStatus } from 'react-dom'
 
 export default function Form({ mutate }:any) {
     const [name, setName] = useState('')
     const [value, setValue] = useState('')
+    const { pending } = useFormStatus()
     const handleSubmit = async (e:any) => {
       e.preventDefault()
       await fetch('/api', {
@@ -30,10 +32,11 @@ export default function Form({ mutate }:any) {
         onChange={e => setValue(e.target.value)}
       />
       <button 
+        disabled={pending}
         type="submit"
-        className="rounded-xl border py-2 px-6 bg-slate-200 text-black hover:bg-slate-300"
+        className="rounded-xl border py-2 px-6 bg-slate-200 text-black hover:bg-slate-300 disabled:bg-slate-400 disabled:cursor-not-allowed"
        >
-        add
+        {pending ? "saving..." : "save"}
        </button>
     </form>
 }
