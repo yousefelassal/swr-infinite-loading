@@ -10,3 +10,12 @@ export async function GET(req: NextRequest) {
   const orders = await Order.find({}).sort({ createdAt: -1 }).skip((page - 1) * limit).limit(limit)
   return NextResponse.json(orders)
 }
+
+export async function POST(req: NextRequest) {
+  await dbConnect()
+  const order = await Order.create(req.body)
+  return NextResponse.json({
+    message: 'Order created successfully',
+    order,
+  })
+}
