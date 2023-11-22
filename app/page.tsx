@@ -9,7 +9,7 @@ const getKey = (pageIndex:any, previousPageData:any) => {
 
 const fetcher = (url:string) => fetch(url).then(res => res.json())
 const LIMIT = 2
- 
+
 export default function Home () {
   const {
     data,
@@ -49,9 +49,10 @@ export default function Home () {
       {orders.map((order:any) =>
         <div 
           key={order._id}
-          className="rounded-xl border flex items-center justify-center shadow-lg p-4"
+          className="rounded-xl border flex gap-2 items-center justify-center shadow-lg p-4"
         >
-          {order.name}
+          <span>{order.name}</span>
+          <span>{order.value}</span>
         </div>)}
     </div>
     <button
