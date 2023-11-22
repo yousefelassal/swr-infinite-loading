@@ -1,10 +1,20 @@
 import { useState } from 'react'
 import { useFormStatus } from 'react-dom'
 
+function Submit(){
+    const { pending } = useFormStatus()
+    return <button 
+        disabled={pending}
+        type="submit"
+        className="rounded-xl border py-2 px-6 bg-slate-200 text-black hover:bg-slate-300 disabled:bg-slate-400 disabled:cursor-not-allowed"
+     >
+        {pending ? "saving..." : "save"}
+     </button>
+}
+
 export default function Form({ mutate }:any) {
     const [name, setName] = useState('')
     const [value, setValue] = useState('')
-    const { pending } = useFormStatus()
     const handleSubmit = async (e:any) => {
       e.preventDefault()
       await fetch('/api', {
@@ -31,12 +41,6 @@ export default function Form({ mutate }:any) {
         value={value}
         onChange={e => setValue(e.target.value)}
       />
-      <button 
-        disabled={pending}
-        type="submit"
-        className="rounded-xl border py-2 px-6 bg-slate-200 text-black hover:bg-slate-300 disabled:bg-slate-400 disabled:cursor-not-allowed"
-       >
-        {pending ? "saving..." : "save"}
-       </button>
+      <Submit />
     </form>
 }
