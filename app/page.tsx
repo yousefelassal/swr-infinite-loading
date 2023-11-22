@@ -1,6 +1,7 @@
 'use client'
 
 import useSWRInfinite from 'swr/infinite'
+import Form from '@/components/Form'
 
 const getKey = (pageIndex:any, previousPageData:any) => {
   if (previousPageData && !previousPageData.length) return null // reached the end
@@ -49,7 +50,7 @@ export default function Home () {
       {orders.map((order:any) =>
         <div 
           key={order._id}
-          className="rounded-xl border flex gap-2 items-center justify-center shadow-lg p-4"
+          className="rounded-xl border bg-violet-900 border-violet-800 flex gap-2 items-center justify-center shadow-lg p-4"
         >
           <span>{order.name}</span>
           <span>{order.value}</span>
@@ -65,5 +66,6 @@ export default function Home () {
         ? "no more issues"
         : "load more"}
     </button>
+    <Form mutate={mutate} />
   </div>
 }
