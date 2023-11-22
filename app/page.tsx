@@ -2,6 +2,7 @@
 
 import useSWRInfinite from 'swr/infinite'
 import Form from '@/components/Form'
+import Loading from '@/components/Loading'
 
 const getKey = (pageIndex:any, previousPageData:any) => {
   if (previousPageData && !previousPageData.length) return null // reached the end
@@ -28,7 +29,7 @@ export default function Home () {
     fetcher
   );
   
-  if (isLoading) return <div>loading...</div>
+  if (isLoading) return <Loading />
   
   if (error) return <div>failed to load</div>
 
