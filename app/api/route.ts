@@ -13,9 +13,12 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   await dbConnect()
-  const order = await Order.create(req.body)
-  return NextResponse.json({
-    message: 'Order created successfully',
-    order,
-  })
+  const body = await req.json()
+  const newOrder = {
+    name: body.name,
+    value: body.value,
+  }
+  const order = new Order(newOrder)
+  await order.save()
+  return NextResponse.json({ message: 'Order created successfully', newOrder })
 }
