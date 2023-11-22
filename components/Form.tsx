@@ -26,16 +26,16 @@ export default function Form({ mutate }:any) {
       setName('')
       setValue('')
     }
-    return <form onSubmit={handleSubmit} className="flex gap-2">
+    return <form onSubmit={handleSubmit} className="grid sm:flex gap-2">
       <input
-        className="rounded-xl flex-1 border border-slate-700 p-2 bg-slate-800 text-white"
+        className="rounded-xl sm:flex-1 border border-slate-700 p-2 bg-slate-800 text-white"
         type="text"
         placeholder="name"
         value={name}
         onChange={e => setName(e.target.value)}
       />
       <input
-        className="rounded-xl flex-1 border border-slate-700 p-2 bg-slate-800 text-white"
+        className="rounded-xl sm:flex-1 border border-slate-700 p-2 bg-slate-800 text-white"
         type="text"
         placeholder="value"
         value={value}
