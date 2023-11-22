@@ -1,32 +1,9 @@
-import connectDB from "@/utils/db";
-import Order from "@/models/order"
+import { NextResponse, NextRequest } from 'next/server'
+import dbConnect from '@/utils/dbConnect'
+import Order from '@/models/order'
 
-export async function GET(req: any, res: any) {
-  await connectDB();
-  
-  const { page = 1, limit = 10 } = req.query;
-  const skip = (Number(page) - 1) * Number(limit);
-
-  try {
-    const orders = await Order.find({})
-        .sort({ createdAt: -1 })
-        .skip(skip)
-        .limit(Number(limit));
-    
-    res.status(200).json({ orders })
-  } catch (error) {
-        res.status(500).json({ error })
-    }
-}
-
-export async function POST(req: any, res: any) {
-  await connectDB();
-
-  try {
-    const order = new Order(req.body);
-    await order.save();
-    res.status(201).json({message: "Order created successfully", order})
-    } catch (error) {
-        res.status(500).json({ error })
-    }
+export async function GET() {
+  await dbConnect()
+  const orders = await Order.find({}).sort({ createdAt: -1 })
+  return NextResponse.json(orders)
 }
