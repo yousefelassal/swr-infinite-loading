@@ -13,10 +13,10 @@ export default function Loading() {
       <div className="rounded-xl animate-pulse bg-gray-600 h-14 w-full" />
     </div>
     
-    <div className="flex gap-2">
-        <div className="rounded-xl flex-1 h-10 animate-pulse bg-gray-600" />
-        <div className="rounded-xl flex-1 h-10 animate-pulse bg-gray-600" />
-        <div className="rounded-xl w-20 h-10 animate-pulse bg-gray-600" />
+    <div className="grid sm:flex gap-2">
+        <div className="rounded-xl sm:flex-1 h-10 animate-pulse bg-gray-600" />
+        <div className="rounded-xl sm:flex-1 h-10 animate-pulse bg-gray-600" />
+        <div className="rounded-xl sm:w-20 h-10 animate-pulse bg-gray-600" />
     </div>
   </div>
   )
