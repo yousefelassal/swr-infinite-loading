@@ -12,7 +12,11 @@ const getKey = (pageIndex:any, previousPageData:any) => {
 const fetcher = (url:string) => fetch(url).then(res => res.json())
 const LIMIT = 2
 
-export default function Mongo () {
+export default function Mongo ({
+  searchParams
+}: {
+  searchParams: { q: string };
+}) {
   const {
     data,
     mutate,
