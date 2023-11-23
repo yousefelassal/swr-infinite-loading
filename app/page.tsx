@@ -68,6 +68,6 @@ export default function Mongo () {
         ? "no more issues"
         : "load more"}
     </button>
-    <Form mutate={mutate} />
+    <Form mutate={mutate} db="mongo" />
   </div>
 }
