@@ -7,7 +7,12 @@ export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams
   const page = parseInt(searchParams.get('page') || '1')
   const limit = parseInt(searchParams.get('limit') || '10')
-  const orders = await Order.find({}).sort({ createdAt: -1 }).skip((page - 1) * limit).limit(limit)
+  const q = searchParams.get('q') || ''
+  if (q === '') {
+    const orders = await Order.find().sort({ createdAt: -1 }).skip((page - 1) * limit).limit(limit)
+    return NextResponse.json(orders)
+  }
+  const orders = await Order.find({ name: { $regex: q, $options: 'i' } }).sort({ createdAt: -1 }).skip((page - 1) * limit).limit(limit)
   return NextResponse.json(orders)
 }
 
