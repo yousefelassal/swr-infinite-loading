@@ -29,11 +29,13 @@ export default function Mongo ({
     isLoading
   } = useSWRInfinite(
     (index:any) =>
-      `/api/mongo?q=${query}&
-      limit=${LIMIT}&page=${
+      `/api/mongo?q=${query}&limit=${LIMIT}&page=${
         index + 1
       }`,
-    fetcher
+    fetcher,
+    {
+      keepPreviousData: true
+    }
   );
   
   if (isLoading) return <Loading />
