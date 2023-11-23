@@ -48,7 +48,11 @@ export default function Mongo ({
  
   return <div className="flex flex-col gap-3 w-full p-4">
     <div className="flex justify-between">
-      <p>{orders.length} orders listed</p>
+      <p>
+        {isLoading ? "loading..." : 
+        `${orders.length} orders listed`
+        }
+      </p>
       <button disabled={isRefreshing} onClick={() => mutate()}>
         {isRefreshing ? "refreshing..." : "refresh"}
       </button>
