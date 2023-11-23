@@ -3,6 +3,7 @@
 import useSWRInfinite from 'swr/infinite'
 import Form from '@/components/Form'
 import ItemsLoading from '@/components/ItemsLoading'
+import Loading from '@/components/Loading'
 import Search from '@/components/Search'
 
 const getKey = (pageIndex:any, previousPageData:any) => {
@@ -34,6 +35,8 @@ export default function Mongo ({
       }`,
     fetcher
   );
+
+  // if (isLoading) return <Loading />
   
   if (error) return <div>failed to load</div>
 
