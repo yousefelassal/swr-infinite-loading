@@ -2,7 +2,9 @@
 
 import useSWRInfinite from 'swr/infinite'
 import Form from '@/components/Form'
+import ItemsLoading from '@/components/ItemsLoading'
 import Loading from '@/components/Loading'
+import Search from '@/components/Search'
 
 const getKey = (pageIndex:any, previousPageData:any) => {
   if (previousPageData && !previousPageData.length) return null // reached the end
@@ -12,7 +14,12 @@ const getKey = (pageIndex:any, previousPageData:any) => {
 const fetcher = (url:string) => fetch(url).then(res => res.json())
 const LIMIT = 2
 
-export default function Mongo () {
+export default function Postgres ({
+    searchParams
+  }: {
+    searchParams: { q: string };
+  }) {
+  const query = searchParams.q ?? '';
   const {
     data,
     mutate,
@@ -23,13 +30,13 @@ export default function Mongo () {
     isLoading
   } = useSWRInfinite(
     (index:any) =>
-      `/api/postgres?limit=${LIMIT}&page=${
+      `/api/postgres?q=${query}&limit=${LIMIT}&page=${
         index + 1
       }`,
     fetcher
   );
   
-  if (isLoading) return <Loading />
+  // if (isLoading) return <Loading />
   
   if (error) return <div>failed to load</div>
 
@@ -41,13 +48,19 @@ export default function Mongo () {
  
   return <div className="flex flex-col gap-3 w-full p-4">
     <div className="flex justify-between">
-      <p>{orders.length} orders listed</p>
+      <p>
+        {isLoading ? "loading..." : 
+        `${orders.length} orders listed`
+        }
+      </p>
       <button disabled={isRefreshing} onClick={() => mutate()}>
         {isRefreshing ? "refreshing..." : "refresh"}
       </button>
     </div>
     <div className="flex flex-col gap-4">
-      {isEmpty ? <p>Yay, no orders found.</p> : null}
+      <Search />
+      {isEmpty ? <div className="flex px-4 py-8 items-center justify-center">Yay, no orders found.</div> : null}
+      {isLoading && <ItemsLoading />}
       {orders.map((order:any) =>
         <div 
           key={order._id}
