@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '10')
     const orders = await sql`SELECT * FROM orders ORDER BY created_at DESC OFFSET ${page - 1} LIMIT ${limit}`
-    return NextResponse.json(orders)
+    return NextResponse.json(orders.rows)
 }
 
 export async function POST(req: NextRequest) {
