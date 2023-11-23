@@ -2,7 +2,7 @@
 
 import useSWRInfinite from 'swr/infinite'
 import Form from '@/components/Form'
-import Loading from '@/components/Loading'
+import ItemsLoading from '@/components/ItemsLoading'
 import Search from '@/components/Search'
 
 const getKey = (pageIndex:any, previousPageData:any) => {
@@ -32,13 +32,8 @@ export default function Mongo ({
       `/api/mongo?q=${query}&limit=${LIMIT}&page=${
         index + 1
       }`,
-    fetcher,
-    {
-      keepPreviousData: true
-    }
+    fetcher
   );
-  
-  if (isLoading) return <Loading />
   
   if (error) return <div>failed to load</div>
 
@@ -57,7 +52,8 @@ export default function Mongo ({
     </div>
     <div className="flex flex-col gap-4">
       <Search />
-      {isEmpty ? <div className="flex items-center justify-center">Yay, no orders found.</div> : null}
+      {isEmpty ? <div className="flex px-4 py-8 items-center justify-center">Yay, no orders found.</div> : null}
+      {isLoading && <ItemsLoading />}
       {orders.map((order:any) =>
         <div 
           key={order._id}
