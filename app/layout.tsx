@@ -5,7 +5,7 @@ import Nav from '@/components/Nav'
 
 export const metadata: Metadata = {
   title: 'SWR Infinite Loading',
-  description: 'Fullstack data fetching app using MondoDB, Next',
+  description: 'Fullstack data fetching app using MondoDB, Postgres, and SWR',
 }
 
 const tabs = [
