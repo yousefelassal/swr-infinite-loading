@@ -12,12 +12,12 @@ function Submit(){
      </button>
 }
 
-export default function Form({ mutate }:any) {
+export default function Form({ mutate, db }:any) {
     const [name, setName] = useState('')
     const [value, setValue] = useState('')
     const handleSubmit = async (e:any) => {
       e.preventDefault()
-      await fetch('/api', {
+      await fetch(`api/${db}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, value })
