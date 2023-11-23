@@ -13,10 +13,10 @@ export default function Nav({ tabs }: { tabs: Tab[] }) {
   const pathname = usePathname()
 
   return (
-    <>
-        <div className="flex bg-white flex-row gap-2 items-center justify-center w-screen">
+    <div className="flex items-center p-2 justify-center w-screen">
+        <div className="flex p-1 border border-gray-900 rounded-2xl flex-row gap-2 items-center justify-center min-w-[300px] w-1/2">
             {tabs.map((tab) => (
-                <Link key={tab.label} href={tab.href} className={`flex flex-col gap-1 relative items-center text-xs justify-center py-2 px-4 ${pathname === tab.href ? 'text-[#2563eb]' : 'text-gray-900 hover:text-gray-500'} cursor-pointer transition-colors`}>
+                <Link key={tab.label} href={tab.href} className={`flex rounded-xl flex-1 flex-col gap-1 relative items-center text-lg justify-center p-4 ${pathname === tab.href ? 'text-[#ffffff]' : 'text-gray-300 hover:text-gray-100'} cursor-pointer transition-colors`}>
                     <span className="z-10 font-medium">{tab.label}</span>
                     {
                         pathname === tab.href && (
@@ -24,15 +24,7 @@ export default function Nav({ tabs }: { tabs: Tab[] }) {
                                 <motion.div 
                                     layout
                                     layoutId="bg"
-                                    className="absolute w-full h-full bg-gradient-to-r from-[#2563eb]/10 to-blue-400/10"
-                                    transition={{type: 'spring', bounce: 0.5, duration: 0.5}}
-                                    initial={false}
-                                />
-                                <motion.div 
-                                    layout
-                                    layoutId="underline"
-                                    className="absolute bottom-0 w-full h-1 bg-gradient-to-r from-[#2563eb] to-blue-400"
-                                    transition={{type: 'spring', bounce: 0.5, duration: 0.5}}
+                                    className="absolute w-full h-full rounded-xl bg-gradient-to-r from-violet-600/20 to-violet-400/20"
                                     initial={false}
                                 />
                             </>
@@ -41,6 +33,6 @@ export default function Nav({ tabs }: { tabs: Tab[] }) {
                 </Link>
             ))}
         </div>
-        </>
+        </div>
   )
 }
