@@ -24,7 +24,7 @@ export default function Search({ disabled }: { disabled?: boolean }) {
   }, 300);
 
   return (
-    <div className="relative mt-5 max-w-md">
+    <div className="relative">
       <label htmlFor="search" className="sr-only">
         Search
       </label>
@@ -43,7 +43,7 @@ export default function Search({ disabled }: { disabled?: boolean }) {
           name="search"
           id="search"
           disabled={disabled}
-          className="h-10 block w-full rounded-md border border-gray-200 pl-9 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          className="h-10 block w-full rounded-xl flex-1 border border-slate-700 p-2 bg-slate-800 text-white pl-9 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           placeholder="Search by name..."
           spellCheck={false}
           onChange={(e) => handleSearch(e.target.value)}
