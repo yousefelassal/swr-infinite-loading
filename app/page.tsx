@@ -12,7 +12,7 @@ const getKey = (pageIndex:any, previousPageData:any) => {
 const fetcher = (url:string) => fetch(url).then(res => res.json())
 const LIMIT = 2
 
-export default function Home () {
+export default function Mongo () {
   const {
     data,
     mutate,
@@ -23,7 +23,7 @@ export default function Home () {
     isLoading
   } = useSWRInfinite(
     (index:any) =>
-      `/api?limit=${LIMIT}&page=${
+      `/api/mongo?limit=${LIMIT}&page=${
         index + 1
       }`,
     fetcher
