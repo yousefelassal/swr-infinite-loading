@@ -8,6 +8,7 @@ import Form from '@/components/Form'
 import ItemsLoading from '@/components/ItemsLoading'
 import Loading from '@/components/Loading'
 import Search from '@/components/Search'
+import { TrashIcon } from '@heroicons/react/24/outline'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -96,8 +97,8 @@ export default function Postgres ({
           </div>
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="hover:bg-violet-400/20" variant="ghost">
-                Delete
+              <Button className="hover:bg-violet-400/20 text-violet-400" variant="ghost">
+                <TrashIcon className="h-5 w-5" />
               </Button>
             </DialogTrigger>
             <DialogContent>
@@ -116,7 +117,7 @@ export default function Postgres ({
                     mutate()
                   }}
                 >
-                    Delete
+                  Delete
                 </Button>
               </DialogClose>
             </div>
