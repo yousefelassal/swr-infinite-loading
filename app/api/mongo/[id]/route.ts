@@ -20,3 +20,12 @@ export async function PUT(
     const order = await Order.findByIdAndUpdate(params.id, body, { new: true })
     return NextResponse.json({ message: 'Order updated successfully', order })
 }
+
+export async function DELETE(
+    req: NextRequest,
+    { params } : { params : { id: string }}
+) {
+    await dbConnect()
+    const order = await Order.findByIdAndDelete(params.id)
+    return NextResponse.json({ message: 'Order deleted successfully', order })
+}
