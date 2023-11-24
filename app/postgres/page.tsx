@@ -104,7 +104,7 @@ export default function Postgres ({
             <span>{order.value}</span>
           </div>
           <div className="flex">
-          <Sheet order={order} mutate={mutate} handleEdit={handleEdit} />
+          <Sheet order={order} handleEdit={handleEdit} />
         <Dialog>
           <DialogTrigger asChild>
             <Button className="hover:bg-violet-400/20 text-violet-400" variant="ghost">
