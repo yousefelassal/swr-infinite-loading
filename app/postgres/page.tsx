@@ -1,13 +1,24 @@
 'use client'
 
 import useSWRInfinite from 'swr/infinite'
-import { create } from '@/actions/postgres'
+import { create, del } from '@/actions/postgres'
 import { useState } from 'react'
 
 import Form from '@/components/Form'
 import ItemsLoading from '@/components/ItemsLoading'
 import Loading from '@/components/Loading'
 import Search from '@/components/Search'
+
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 const getKey = (pageIndex:any, previousPageData:any) => {
   if (previousPageData && !previousPageData.length) return null // reached the end
@@ -83,6 +94,23 @@ export default function Postgres ({
             <span>{order.name}</span>
             <span>{order.value}</span>
           </div>
+          <Dialog>
+            <DialogTrigger className="h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground hover:bg-destructive/90">حذف</DialogTrigger>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Delete Card</DialogTitle>
+                    <DialogDescription>
+                        Are you sure you want to delete this card?
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="flex justify-center gap-8">
+                    <DialogClose>Cancel</DialogClose>
+                    <Button variant="destructive" onClick={() => del(order.id)}>
+                        Delete
+                    </Button>
+                </div>
+            </DialogContent>
+        </Dialog>
         </div>)}
     </div>
     <button
