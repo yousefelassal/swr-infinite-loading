@@ -1,6 +1,9 @@
 'use client'
 
 import useSWRInfinite from 'swr/infinite'
+import { create } from '@/actions/create'
+import { useState } from 'react'
+
 import Form from '@/components/Form'
 import ItemsLoading from '@/components/ItemsLoading'
 import Loading from '@/components/Loading'
@@ -19,6 +22,8 @@ export default function Postgres ({
   }: {
     searchParams: { q: string };
   }) {
+  const [name, setName] = useState('')
+  const [value, setValue] = useState('')
   const query = searchParams.q ?? '';
   const {
     data,
@@ -39,6 +44,14 @@ export default function Postgres ({
   // if (isLoading) return <Loading />
   
   if (error) return <div>failed to load</div>
+
+  const handleSubmit = async (e:any) => {
+    e.preventDefault()
+    await create(name, value)
+    mutate()
+    setName('')
+    setValue('')
+  }
 
   const orders = data ? [].concat(...data) : []
   const isLoadingMore = isLoading || (size > 0 && data && typeof data[size - 1] === 'undefined')
@@ -81,6 +94,6 @@ export default function Postgres ({
         ? "no more issues"
         : "load more"}
     </button>
-    <Form mutate={mutate} db="postgres" />
+    <Form name={name} setName={setName} value={value} setValue={setValue} handleSubmit={handleSubmit} />
   </div>
 }
