@@ -1,16 +1,19 @@
 'use client'
 
 import useSWRInfinite from 'swr/infinite'
-import { create, del } from '@/actions/postgres'
+import { create, del, update } from '@/actions/postgres'
 import { useState } from 'react'
 
 import Form from '@/components/Form'
 import ItemsLoading from '@/components/ItemsLoading'
 import Loading from '@/components/Loading'
 import Search from '@/components/Search'
+import Sheet from '@/components/Sheet'
+
 import { TrashIcon } from '@heroicons/react/24/outline'
 
 import { Button } from "@/components/ui/button"
+
 import {
   Dialog,
   DialogClose,
@@ -65,6 +68,11 @@ export default function Postgres ({
     setValue('')
   }
 
+  const handleEdit = async (id:any, name:any, value:any) => {
+    await update(id, name, value)
+    mutate()
+  }
+
   const orders = data ? [].concat(...data) : []
   const isLoadingMore = isLoading || (size > 0 && data && typeof data[size - 1] === 'undefined')
   const isEmpty = data?.[0]?.length === 0
@@ -95,34 +103,37 @@ export default function Postgres ({
             <span>{order.name}</span>
             <span>{order.value}</span>
           </div>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button className="hover:bg-violet-400/20 text-violet-400" variant="ghost">
-                <TrashIcon className="h-5 w-5" />
+          <div className="flex">
+          <Sheet order={order} mutate={mutate} handleEdit={handleEdit} />
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="hover:bg-violet-400/20 text-violet-400" variant="ghost">
+              <TrashIcon className="h-5 w-5" />
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Delete Card</DialogTitle>
+              <DialogDescription>
+                  Are you sure you want to delete this card?
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex justify-center gap-8">
+              <DialogClose>Cancel</DialogClose>
+              <DialogClose asChild>
+              <Button variant="destructive" onClick={
+                async () => {
+                  await del(order.id)
+                  mutate()
+                }}
+              >
+                Delete
               </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Delete Card</DialogTitle>
-                <DialogDescription>
-                    Are you sure you want to delete this card?
-                </DialogDescription>
-              </DialogHeader>
-              <div className="flex justify-center gap-8">
-                <DialogClose>Cancel</DialogClose>
-                <DialogClose asChild>
-                <Button variant="destructive" onClick={
-                  async () => {
-                    await del(order.id)
-                    mutate()
-                  }}
-                >
-                  Delete
-                </Button>
-              </DialogClose>
+            </DialogClose>
             </div>
           </DialogContent>
         </Dialog>
+        </div>
         </div>)}
     </div>
     <button
