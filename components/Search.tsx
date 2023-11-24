@@ -1,17 +1,18 @@
 'use client';
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
 export default function Search({ disabled }: { disabled?: boolean }) {
   const { replace } = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
   const handleSearch = useDebouncedCallback((term: string) => {
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(searchParams.toString());
     if (term) {
       params.set('q', term);
     } else {
@@ -47,6 +48,7 @@ export default function Search({ disabled }: { disabled?: boolean }) {
           placeholder="Search by name..."
           spellCheck={false}
           onChange={(e) => handleSearch(e.target.value)}
+          defaultValue={searchParams?.get('q') || ''}
         />
       </div>
 
