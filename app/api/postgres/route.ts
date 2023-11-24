@@ -6,12 +6,13 @@ export async function GET(req: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '10')
     const q = searchParams.get('q') || ''
+    const query = `%${q}%`
     const offset = (page - 1) * limit
     if (q === '') {
         const orders = await sql`SELECT * FROM orders ORDER BY created_at DESC OFFSET ${offset} LIMIT ${limit}`
         return NextResponse.json(orders.rows)
     }
-    const orders = await sql`SELECT * FROM orders WHERE name ILIKE ${q} ORDER BY created_at DESC OFFSET ${offset} LIMIT ${limit}`
+    const orders = await sql`SELECT * FROM orders WHERE name ILIKE ${query} ORDER BY created_at DESC OFFSET ${offset} LIMIT ${limit}`
     return NextResponse.json(orders.rows)
 }
 
