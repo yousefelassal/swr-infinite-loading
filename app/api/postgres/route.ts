@@ -35,3 +35,9 @@ export async function PUT(req: NextRequest) {
     const order = await sql`UPDATE orders SET name = ${newOrder.name}, value = ${newOrder.value} WHERE id = ${newOrder.id} RETURNING *`
     return NextResponse.json({ message: 'Order updated successfully', order })
 }
+
+export async function DELETE(req: NextRequest) {
+    const body = await req.json()
+    const order = await sql`DELETE FROM orders WHERE id = ${body.id} RETURNING *`
+    return NextResponse.json({ message: 'Order deleted successfully', order })
+}
