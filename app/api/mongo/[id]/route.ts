@@ -10,3 +10,13 @@ export async function GET(
     const order = await Order.findById(params.id)
     return NextResponse.json(order)
 }
+
+export async function PUT(
+    req: NextRequest,
+    { params } : { params : { id: string }}
+) {
+    await dbConnect()
+    const body = await req.json()
+    const order = await Order.findByIdAndUpdate(params.id, body, { new: true })
+    return NextResponse.json({ message: 'Order updated successfully', order })
+}
