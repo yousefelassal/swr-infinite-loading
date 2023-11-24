@@ -77,10 +77,12 @@ export default function Postgres ({
       {orders.map((order:any) =>
         <div 
           key={order.id}
-          className="rounded-xl border bg-violet-900 border-violet-800 flex gap-2 items-center justify-center shadow-lg p-4"
+          className="rounded-xl border bg-violet-900 border-violet-800 flex shadow-lg p-4"
         >
-          <span>{order.name}</span>
-          <span>{order.value}</span>
+          <div className="flex flex-1 gap-2 items-center justify-center">
+            <span>{order.name}</span>
+            <span>{order.value}</span>
+          </div>
         </div>)}
     </div>
     <button
