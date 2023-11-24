@@ -18,10 +18,10 @@ const fetcher = (url:string) => fetch(url).then(res => res.json())
 const LIMIT = 2
 
 export default function Postgres ({
-    searchParams
-  }: {
-    searchParams: { q: string };
-  }) {
+  searchParams
+}: {
+  searchParams: { q: string };
+}) {
   const [name, setName] = useState('')
   const [value, setValue] = useState('')
   const query = searchParams.q ?? '';
@@ -40,7 +40,7 @@ export default function Postgres ({
       }`,
     fetcher
   );
-  
+
   // if (isLoading) return <Loading />
   
   if (error) return <div>failed to load</div>
@@ -76,7 +76,7 @@ export default function Postgres ({
       {isLoading && <ItemsLoading />}
       {orders.map((order:any) =>
         <div 
-          key={order._id}
+          key={order.id}
           className="rounded-xl border bg-violet-900 border-violet-800 flex gap-2 items-center justify-center shadow-lg p-4"
         >
           <span>{order.name}</span>
