@@ -12,20 +12,8 @@ function Submit(){
      </button>
 }
 
-export default function Form({ mutate, db }:any) {
-    const [name, setName] = useState('')
-    const [value, setValue] = useState('')
-    const handleSubmit = async (e:any) => {
-      e.preventDefault()
-      await fetch(`api/${db}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, value })
-      })
-      mutate()
-      setName('')
-      setValue('')
-    }
+export default function Form({ name, setName, value, setValue, handleSubmit }:any) {
+    
     return <form onSubmit={handleSubmit} className="grid sm:flex gap-2">
       <input
         className="rounded-xl sm:flex-1 border border-slate-700 p-2 bg-slate-800 text-white"
