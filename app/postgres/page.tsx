@@ -111,8 +111,8 @@ export default function Postgres ({
                 <DialogClose>Cancel</DialogClose>
                 <DialogClose asChild>
                 <Button variant="destructive" onClick={
-                  () => {
-                    del(order.id)
+                  async () => {
+                    await del(order.id)
                     mutate()
                   }}
                 >
