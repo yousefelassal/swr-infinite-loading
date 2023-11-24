@@ -95,21 +95,32 @@ export default function Postgres ({
             <span>{order.value}</span>
           </div>
           <Dialog>
-            <DialogTrigger className="h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground hover:bg-destructive/90">حذف</DialogTrigger>
+            <DialogTrigger asChild>
+              <Button className="hover:bg-violet-400/20" variant="ghost">
+                Delete
+              </Button>
+            </DialogTrigger>
             <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Delete Card</DialogTitle>
-                    <DialogDescription>
-                        Are you sure you want to delete this card?
-                    </DialogDescription>
-                </DialogHeader>
-                <div className="flex justify-center gap-8">
-                    <DialogClose>Cancel</DialogClose>
-                    <Button variant="destructive" onClick={() => del(order.id)}>
-                        Delete
-                    </Button>
-                </div>
-            </DialogContent>
+              <DialogHeader>
+                <DialogTitle>Delete Card</DialogTitle>
+                <DialogDescription>
+                    Are you sure you want to delete this card?
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex justify-center gap-8">
+                <DialogClose>Cancel</DialogClose>
+                <DialogClose asChild>
+                <Button variant="destructive" onClick={
+                  () => {
+                    del(order.id)
+                    mutate()
+                  }}
+                >
+                    Delete
+                </Button>
+              </DialogClose>
+            </div>
+          </DialogContent>
         </Dialog>
         </div>)}
     </div>
