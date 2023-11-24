@@ -24,20 +24,3 @@ export async function POST(req: NextRequest) {
     const order = await sql`INSERT INTO orders (name, value) VALUES (${newOrder.name}, ${newOrder.value}) RETURNING *`
     return NextResponse.json({ message: 'Order created successfully', order })
 }
-
-export async function PUT(req: NextRequest) {
-    const body = await req.json()
-    const newOrder = {
-        id: body.id,
-        name: body.name,
-        value: body.value,
-    }
-    const order = await sql`UPDATE orders SET name = ${newOrder.name}, value = ${newOrder.value} WHERE id = ${newOrder.id} RETURNING *`
-    return NextResponse.json({ message: 'Order updated successfully', order })
-}
-
-export async function DELETE(req: NextRequest) {
-    const body = await req.json()
-    const order = await sql`DELETE FROM orders WHERE id = ${body.id} RETURNING *`
-    return NextResponse.json({ message: 'Order deleted successfully', order })
-}
