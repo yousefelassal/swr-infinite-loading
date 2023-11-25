@@ -68,8 +68,8 @@ export default function Postgres ({
     setValue('')
   }
 
-  const handleEdit = async (id:any, name:any, value:any) => {
-    await update(id, name, value)
+  const handleEdit = async (order:any) => {
+    await update(order)
     mutate()
   }
 
