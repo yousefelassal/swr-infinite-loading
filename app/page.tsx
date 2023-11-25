@@ -60,8 +60,7 @@ export default function Mongo ({
   
   if (error) return <div>failed to load</div>
 
-  const handleSubmit = async (e:any) => {
-    e.preventDefault()
+  const handleSubmit = async () => {
     await fetch(`api/mongo`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
