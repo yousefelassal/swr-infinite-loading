@@ -1,5 +1,10 @@
 import { useState } from 'react'
-import { useFormStatus } from 'react-dom'
+import { useFormStatus, useFormState } from 'react-dom'
+import { createOrder } from '@/app/postgres/actions'
+
+const initialState = {
+  message: '',
+}
 
 function Submit(){
     const { pending } = useFormStatus()
@@ -13,22 +18,35 @@ function Submit(){
 }
 
 export default function Form({ name, setName, value, setValue, handleSubmit }:any) {
-    
-    return <form onSubmit={handleSubmit} className="grid sm:flex gap-2">
+  // const [state, formAction] = useFormState(createOrder, initialState)
+    return <form 
+        // action={formAction}
+        onSubmit={handleSubmit}
+        className="grid sm:flex gap-2"
+      >
       <input
+        id="name"
+        name="name"
         className="rounded-xl sm:flex-1 border border-slate-700 p-2 bg-slate-800 text-white"
         type="text"
         placeholder="name"
         value={name}
+        autoComplete='off'
         onChange={e => setName(e.target.value)}
       />
       <input
+        id="value"
+        name="value"
+        type="number"
         className="rounded-xl sm:flex-1 border border-slate-700 p-2 bg-slate-800 text-white"
-        type="text"
         placeholder="value"
         value={value}
+        autoComplete='off'
         onChange={e => setValue(e.target.value)}
       />
       <Submit />
+      {/* <p aria-live="polite" className="sr-only" role="status">
+        {state?.message}
+      </p> */}
     </form>
 }
