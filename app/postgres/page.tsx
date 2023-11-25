@@ -1,7 +1,7 @@
 'use client'
 
 import useSWRInfinite from 'swr/infinite'
-import { create, del, update } from '@/actions/postgres'
+import { create, del, update } from './actions'
 import { useState } from 'react'
 
 import Form from '@/components/Form'
