@@ -10,20 +10,20 @@ type Order = {
 }
 
 export const get = async ():Promise<Order[]> => {
-    const { data } = await axios.get(`${baseURL}/orders`);
+    const { data } = await axios.get(`${baseURL}`);
     return data;
 }
 
 export const post = async (order:any) => {
-    const { data } = await axios.post(`${baseURL}/orders`, order);
+    const { data } = await axios.post(`${baseURL}`, order);
     return data;
 }
 
 export const put = async (order:any) => {
-    const { data } = await axios.put(`${baseURL}/orders/${order._id}`, order);
+    const { data } = await axios.put(`${baseURL}/${order._id}`, order);
     return data;
 }
 
 export const del = async (order:any) => {
-    await axios.delete(`${baseURL}/orders/${order._id}`);
+    await axios.delete(`${baseURL}/${order._id}`);
 }
