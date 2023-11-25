@@ -60,8 +60,7 @@ export default function Postgres ({
   
   if (error) return <div>failed to load</div>
 
-  const handleSubmit = async (e:any) => {
-    e.preventDefault()
+  const handleSubmit = async () => {
     await create(name, value)
     mutate()
     setName('')
