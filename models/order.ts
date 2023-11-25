@@ -29,4 +29,10 @@ const OrderSchema = new mongoose.Schema<Orders>({
   },
 })
 
+OrderSchema.set('toJSON', {
+  transform: function (doc, ret, options) {
+    delete ret.__v
+  }
+})
+
 export default mongoose.models.Order || mongoose.model<Orders>('Order', OrderSchema)
