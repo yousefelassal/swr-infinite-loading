@@ -66,7 +66,15 @@ export default function MySheet({ order, handleEdit }: any) {
             <SheetClose asChild>
             <Button
                 type="submit"
-                onClick={() => handleEdit(order.id, name, value)}
+                onClick={() => {
+                    const newOrder = {
+                        id: order.id,
+                        name,
+                        value
+                    }
+                    handleEdit(newOrder)
+                    }
+                }
             >
                 Save changes
             </Button>
