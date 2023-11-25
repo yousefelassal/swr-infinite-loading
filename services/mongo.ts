@@ -24,6 +24,6 @@ export const put = async (order:any) => {
     return data;
 }
 
-export const del = async (order:any) => {
-    await axios.delete(`${baseURL}/${order.id}`);
+export const del = async (id:any) => {
+    await axios.delete(`${baseURL}/${id}`);
 }
