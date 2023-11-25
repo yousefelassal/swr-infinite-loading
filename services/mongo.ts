@@ -3,7 +3,7 @@ import axios from 'axios';
 const baseURL = '/api/mongo';
 
 type Order = {
-    _id: string;
+    id: string;
     name: string;
     value: number;
     createdAt: Date;
@@ -20,10 +20,10 @@ export const post = async (order:any) => {
 }
 
 export const put = async (order:any) => {
-    const { data } = await axios.put(`${baseURL}/${order._id}`, order);
+    const { data } = await axios.put(`${baseURL}/${order.id}`, order);
     return data;
 }
 
 export const del = async (order:any) => {
-    await axios.delete(`${baseURL}/${order._id}`);
+    await axios.delete(`${baseURL}/${order.id}`);
 }
