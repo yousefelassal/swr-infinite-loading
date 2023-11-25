@@ -8,6 +8,8 @@ import ItemsLoading from '@/components/ItemsLoading'
 import Loading from '@/components/Loading'
 import Search from '@/components/Search'
 
+import { post } from '@/services/mongo'
+
 const getKey = (pageIndex:any, previousPageData:any) => {
   if (previousPageData && !previousPageData.length) return null // reached the end
   return `/api?page=${pageIndex}&limit=2`                    // SWR key
@@ -46,11 +48,8 @@ export default function Mongo ({
 
   const handleSubmit = async (e:any) => {
     e.preventDefault()
-    await fetch(`api/mongo`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, value })
-    })
+    const order = { name, value }
+    await post(order)
     mutate()
     setName('')
     setValue('')
