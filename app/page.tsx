@@ -7,6 +7,7 @@ import Form from '@/components/Form'
 import ItemsLoading from '@/components/ItemsLoading'
 import Loading from '@/components/Loading'
 import Search from '@/components/Search'
+import Sheet from '@/components/Sheet'
 
 import { put, del } from '@/services/mongo'
 
@@ -58,6 +59,11 @@ export default function Mongo ({
     setValue('')
   }
 
+  const handleEdit = async (order:any) => {
+    await put(order)
+    mutate()
+  }
+
   const orders = data ? [].concat(...data) : []
   const isLoadingMore = isLoading || (size > 0 && data && typeof data[size - 1] === 'undefined')
   const isEmpty = data?.[0]?.length === 0
@@ -81,11 +87,16 @@ export default function Mongo ({
       {isLoading && <ItemsLoading />}
       {orders.map((order:any) =>
         <div 
-          key={order._id}
-          className="rounded-xl border bg-violet-900 border-violet-800 flex gap-2 items-center justify-center shadow-lg p-4"
+          key={order.id}
+          className="rounded-xl border bg-violet-900 border-violet-800 flex shadow-lg p-4"
         >
-          <span>{order.name}</span>
-          <span>{order.value}</span>
+          <div className="flex flex-1 gap-2 items-center justify-center">
+            <span>{order.name}</span>
+            <span>{order.value}</span>
+          </div>
+          <div className="flex">
+          <Sheet order={order} handleEdit={handleEdit} />
+          </div>
         </div>)}
     </div>
     <button
