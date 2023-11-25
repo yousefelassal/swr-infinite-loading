@@ -19,12 +19,12 @@ export async function read(id:number) {
     return orders.rows;
 }
 
-export async function update(id:number, name:string, value:any) {
+export async function update(order:any) {
     'use server'
     await sql`
       UPDATE orders
-      SET name = ${name}, value = ${value}
-      WHERE id = ${id}
+      SET name = ${order.name}, value = ${order.value}
+      WHERE id = ${order.id}
     `;
 }
 
