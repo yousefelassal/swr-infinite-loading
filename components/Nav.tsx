@@ -24,7 +24,7 @@ export default function Nav({ tabs }: { tabs: Tab[] }) {
                                 <motion.div 
                                     layout
                                     layoutId="bg"
-                                    className="absolute w-full h-full rounded-xl bg-gradient-to-r from-violet-600/20 to-violet-400/20"
+                                    className="absolute w-full h-full rounded-xl border border-gray-900 bg-gradient-to-b from-violet-300/20 to-violet-800/20"
                                     initial={false}
                                 />
                             </>
