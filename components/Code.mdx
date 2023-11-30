@@ -1,7 +1,7 @@
 <br />
 
 `api/mongo`
-```js
+```ts
 export async function GET(req: NextRequest) {
   await dbConnect()
   const searchParams = req.nextUrl.searchParams
