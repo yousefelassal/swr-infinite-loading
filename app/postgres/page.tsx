@@ -9,6 +9,7 @@ import ItemsLoading from '@/components/ItemsLoading'
 import Loading from '@/components/Loading'
 import Search from '@/components/Search'
 import Sheet from '@/components/Sheet'
+import Code from '@/components/CodePostgres.mdx'
 
 import { TrashIcon } from '@heroicons/react/24/outline'
 
@@ -147,5 +148,8 @@ export default function Postgres ({
         : "load more"}
     </button>
     <Form name={name} setName={setName} value={value} setValue={setValue} handleSubmit={handleSubmit} />
+    <div className="max-w-md lg:max-w-none">
+      <Code />
+    </div>
   </div>
 }
