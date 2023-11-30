@@ -22,7 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={GeistSans.className}>
         <Nav tabs={tabs} />
-        {children}
+        <div className="flex items-center justify-center w-full">
+          <div className="flex-1 max-w-4xl">
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   )
