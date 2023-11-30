@@ -152,10 +152,6 @@ export default function Mongo ({
         : "load more"}
     </button>
     <Form name={name} setName={setName} value={value} setValue={setValue} handleSubmit={handleSubmit} />
-    <div className="w-full flex items-center justify-center">
-      <div className="max-w-md">
-        <Code />
-      </div>
-    </div>
+    <Code />
   </div>
 }
