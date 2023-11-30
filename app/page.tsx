@@ -152,6 +152,8 @@ export default function Mongo ({
         : "load more"}
     </button>
     <Form name={name} setName={setName} value={value} setValue={setValue} handleSubmit={handleSubmit} />
-    <Code />
+    <div className="max-w-md lg:max-w-none">
+      <Code />
+    </div>
   </div>
 }
