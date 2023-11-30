@@ -8,6 +8,7 @@ import ItemsLoading from '@/components/ItemsLoading'
 import Loading from '@/components/Loading'
 import Search from '@/components/Search'
 import Sheet from '@/components/Sheet'
+import Code from '@/components/Code.mdx'
 
 import { TrashIcon } from '@heroicons/react/24/outline'
 
@@ -151,5 +152,10 @@ export default function Mongo ({
         : "load more"}
     </button>
     <Form name={name} setName={setName} value={value} setValue={setValue} handleSubmit={handleSubmit} />
+    <div className="w-full flex items-center justify-center">
+      <div className="max-w-md">
+        <Code />
+      </div>
+    </div>
   </div>
 }
