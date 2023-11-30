@@ -7,6 +7,7 @@ import { useState } from 'react'
 import Form from '@/components/Form'
 import ItemsLoading from '@/components/ItemsLoading'
 import Loading from '@/components/Loading'
+import Error from '@/components/Error'
 import Search from '@/components/Search'
 import Sheet from '@/components/Sheet'
 import Code from '@/components/CodePostgres.mdx'
@@ -59,7 +60,7 @@ export default function Postgres ({
 
   // if (isLoading) return <Loading />
   
-  if (error) return <div>failed to load</div>
+  // if (error) return <div>failed to load</div>
 
   const handleSubmit = async () => {
     await create(name, value)
@@ -93,7 +94,8 @@ export default function Postgres ({
     <div className="flex flex-col gap-4">
       <Search />
       {isEmpty ? <div className="flex px-4 py-8 items-center justify-center">Yay, no orders found.</div> : null}
-      {isLoading && <ItemsLoading />}
+      {isLoading ? <ItemsLoading /> :
+      error && <Error />}
       {orders.map((order:any) =>
         <div 
           key={order.id}
