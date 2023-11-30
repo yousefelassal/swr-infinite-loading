@@ -84,19 +84,20 @@
 
 pre::-webkit-scrollbar 
 {
-  width: 14px;
+  width: 10px;
+  height: 10px;
 }
 
 pre::-webkit-scrollbar-track 
 {
-  background-color: var(--comment);
-  border-radius: 0px;
+  background-color: var(--comment-30);
+  border-radius: 8px;
 }
 
 pre::-webkit-scrollbar-thumb 
 {
-  background-color: var(--purple);
-  border-radius: 0px;
+  background-color: var(--fg-30);
+  border-radius: 6px;
 }
 
 /* Selection */
