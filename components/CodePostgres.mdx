@@ -1,0 +1,19 @@
+<br />
+
+[`api/postgres`](/api/postgres)
+```ts
+export async function GET(req: NextRequest) {
+    const searchParams = req.nextUrl.searchParams
+    const page = parseInt(searchParams.get('page') || '1')
+    const limit = parseInt(searchParams.get('limit') || '10')
+    const q = searchParams.get('q') || ''
+    const query = `%${q}%`
+    const offset = (page - 1) * limit
+    const orders = await sql`SELECT * FROM orders 
+        WHERE name ILIKE ${query} 
+        ORDER BY created_at DESC 
+        OFFSET ${offset} 
+        LIMIT ${limit}`
+    return NextResponse.json(orders.rows)
+}
+```
