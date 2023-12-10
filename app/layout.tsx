@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans';
 import './globals.css'
+import MainNav from '@/components/MainNav'
 
 export const metadata: Metadata = {
   title: 'SWR Infinite Loading',
@@ -15,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={GeistSans.className}>
-        {children}
+        <MainNav />
+        <div className="md:ml-60">
+          {children}
+        </div>
       </body>
     </html>
   )
