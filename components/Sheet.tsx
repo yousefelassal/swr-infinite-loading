@@ -5,6 +5,12 @@ import { useState } from "react"
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
 
 import { Button } from "@/components/ui/button"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
@@ -25,11 +31,20 @@ export default function MySheet({ order, handleEdit }: any) {
 
     return (
     <Sheet>
+        <TooltipProvider>
+        <Tooltip>
+        <TooltipTrigger asChild>
         <SheetTrigger asChild>
         <Button className="hover:bg-violet-400/20 text-violet-400" variant="ghost">
             <PencilSquareIcon className="h-5 w-5" />
         </Button>
         </SheetTrigger>
+        </TooltipTrigger>
+        <TooltipContent>
+            Edit card
+        </TooltipContent>
+        </Tooltip>
+        </TooltipProvider>
         <SheetContent>
         <SheetHeader>
             <SheetTitle>Edit Card</SheetTitle>
