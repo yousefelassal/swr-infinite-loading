@@ -77,9 +77,10 @@ export default function MySheet({ order, handleEdit }: any) {
             />
             </div>
         </div>
-        <SheetFooter>
+        <SheetFooter className="grid grid-cols-4">
             <SheetClose asChild>
             <Button
+                className="col-start-2 col-span-3 md:col-start-6 md:col-span-1"
                 type="submit"
                 onClick={() => {
                     const newOrder = {
