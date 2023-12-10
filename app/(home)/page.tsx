@@ -14,6 +14,12 @@ import { TrashIcon } from '@heroicons/react/24/outline'
 
 import { Button } from "@/components/ui/button"
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -113,11 +119,20 @@ export default function Mongo ({
           <div className="flex">
           <Sheet order={order} handleEdit={handleEdit} />
           <Dialog>
+          <TooltipProvider>
+          <Tooltip>
+          <TooltipTrigger asChild>
           <DialogTrigger asChild>
             <Button className="hover:bg-violet-400/20 text-violet-400" variant="ghost">
               <TrashIcon className="h-5 w-5" />
             </Button>
           </DialogTrigger>
+          </TooltipTrigger>
+          <TooltipContent>
+            Delete card
+          </TooltipContent>
+          </Tooltip>
+          </TooltipProvider>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Delete Card</DialogTitle>
