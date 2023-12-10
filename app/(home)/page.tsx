@@ -40,6 +40,7 @@ export default function Mongo ({
 }) {
   const [name, setName] = useState('')
   const [value, setValue] = useState('')
+  const [open, setOpen] = useState(false)
   const query = searchParams.q ?? '';
   const {
     data,
@@ -70,6 +71,7 @@ export default function Mongo ({
     mutate()
     setName('')
     setValue('')
+    setOpen(false)
   }
 
   const handleEdit = async (order:any) => {
@@ -152,6 +154,12 @@ export default function Mongo ({
         ? "no more issues"
         : "load more"}
     </button>
-    <Form name={name} setName={setName} value={value} setValue={setValue} handleSubmit={handleSubmit} />
+    <Form 
+      setName={setName}
+      setValue={setValue}
+      handleSubmit={handleSubmit}
+      isOpen={open}
+      setIsOpen={setOpen}
+    />
   </div>
 }
