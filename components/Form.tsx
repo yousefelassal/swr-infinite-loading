@@ -48,7 +48,7 @@ export default function Form({ isOpen, setIsOpen, setName, setValue, handleSubmi
         <Tooltip>
         <TooltipTrigger asChild>
           <SheetTrigger asChild>
-              <button className="fixed p-4 w-40 hover:text-gray-200 bg-gradient-to-br border-violet-500 from-violet-600 to-violet-400 hover:bg-gradient-to-tl grid place-content-center text-white bottom-8 right-12 border z-50 rounded-full shadow-2xl text-lg hover:scale-[1.02] active:scale-95 transition-all">
+              <button className="fixed p-4 w-40 hover:text-gray-200 bg-gradient-to-br border-violet-500 from-violet-600 to-violet-400 hover:bg-gradient-to-tl grid place-content-center text-white bottom-4 right-4 md:bottom-8 md:right-12 border z-50 rounded-full shadow-2xl text-lg hover:scale-[1.02] active:scale-95 transition-all">
                 <PlusIcon className="h-6 w-6" />
               </button>
           </SheetTrigger>
@@ -88,12 +88,13 @@ export default function Form({ isOpen, setIsOpen, setName, setValue, handleSubmi
           />
         </div>
       </div>
-      <SheetFooter>
+      <SheetFooter className="grid grid-cols-4">
         <SheetClose asChild>
         <Button
           disabled={form.formState.isSubmitting}
           type="submit"
           onClick={form.handleSubmit(handleSubmit)}
+          className="col-start-2 col-span-3 md:col-start-6 md:col-span-1"
         >
           {form.formState.isSubmitting ? "Saving..." : "Create"}
         </Button>
