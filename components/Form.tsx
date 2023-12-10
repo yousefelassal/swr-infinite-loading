@@ -58,7 +58,7 @@ export default function Form({ isOpen, setIsOpen, setName, setValue, handleSubmi
         </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-    <SheetContent side="bottom">
+    <SheetContent side="left">
       <SheetHeader>
         <SheetTitle>Create Card</SheetTitle>
         <SheetDescription>
