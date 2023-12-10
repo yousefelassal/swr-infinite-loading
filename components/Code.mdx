@@ -1,7 +1,9 @@
 <br />
 
-[`api/mongo`](/api/mongo)
-```ts
+# MongoDB `GET` request 
+
+[visit endpoint `/api/mongo`](/api/mongo)
+```app/api/mongo.ts
 export async function GET(req: NextRequest) {
   await dbConnect()
   const searchParams = req.nextUrl.searchParams
