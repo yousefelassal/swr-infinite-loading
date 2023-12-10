@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { HomeIcon, StarIcon, CodeBracketIcon  } from "@heroicons/react/24/solid"
+import { HomeIcon, BookmarkIcon, CodeBracketIcon  } from "@heroicons/react/24/solid"
 
 type Tab = {
     href: string
@@ -16,7 +16,7 @@ export default function MainNav() {
   const pathname = usePathname()
   const tabs:Tab[] = [
     { href: '/', label: 'Home', isActive: pathname === '/' || pathname === '/postgres', icon: HomeIcon },
-    { href: '/saved', label: 'Saved', isActive: pathname === '/saved', icon: StarIcon },
+    { href: '/saved', label: 'Saved', isActive: pathname === '/saved', icon: BookmarkIcon },
     { href: '/documentation', label: 'Documentation', isActive: pathname === '/documentation', icon: CodeBracketIcon },
   ]
   return (
