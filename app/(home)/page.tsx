@@ -91,7 +91,7 @@ export default function Mongo ({
   const isReachingEnd = isEmpty || (data && data[data.length - 1]?.length < 2)
   const isRefreshing = isValidating && data && data.length === size
  
-  return <div className="flex flex-col gap-3 w-full p-4">
+  return <div className="flex flex-col gap-3 w-full py-4">
     <div className="flex justify-between">
       <p>
         {isLoading ? "loading..." : 
