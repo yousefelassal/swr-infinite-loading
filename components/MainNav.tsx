@@ -7,11 +7,12 @@ import { motion } from "framer-motion"
 type Tab = {
     href: string
     label: string
+    isActive: boolean
 }
 
 export default function MainNav() {
   const pathname = usePathname()
-  const tabs = [
+  const tabs:Tab[] = [
     { href: '/', label: 'All', isActive: pathname === '/' || pathname === '/postgres' },
     { href: '/saved', label: 'Saved', isActive: pathname === '/saved' },
     { href: '/documentation', label: 'Documentation', isActive: pathname === '/documentation' },
