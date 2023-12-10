@@ -3,26 +3,31 @@
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { HomeIcon, StarIcon, CodeBracketIcon  } from "@heroicons/react/24/solid"
 
 type Tab = {
     href: string
     label: string
     isActive: boolean
+    icon: any
 }
 
 export default function MainNav() {
   const pathname = usePathname()
   const tabs:Tab[] = [
-    { href: '/', label: 'All', isActive: pathname === '/' || pathname === '/postgres' },
-    { href: '/saved', label: 'Saved', isActive: pathname === '/saved' },
-    { href: '/documentation', label: 'Documentation', isActive: pathname === '/documentation' },
+    { href: '/', label: 'Home', isActive: pathname === '/' || pathname === '/postgres', icon: HomeIcon },
+    { href: '/saved', label: 'Saved', isActive: pathname === '/saved', icon: StarIcon },
+    { href: '/documentation', label: 'Documentation', isActive: pathname === '/documentation', icon: CodeBracketIcon },
   ]
   return (
     <div className="hidden md:flex fixed h-full w-64 p-4 mt-2">
         <div className="flex flex-col gap-3 h-fit p-2 w-full rounded-2xl bg-violet-950/20 border-violet-900/20">
             {tabs.map((tab) => (
                 <Link href={tab.href} key={tab.label} className={`flex rounded-xl flex-col gap-1 relative items-center sm:text-lg justify-center p-4 ${tab.isActive ? 'text-white' : 'text-gray-300 hover:text-gray-100'} cursor-pointer transition-colors`}>
-                    <span className="z-10 font-medium">{tab.label}</span>
+                    <div className="flex w-full items-center justify-start gap-2">
+                        <tab.icon className="w-5 h-5" />
+                        <span className="z-10 font-medium">{tab.label}</span>
+                    </div>
                     {
                         tab.isActive && (
                             <>
