@@ -8,7 +8,7 @@ import Search from '@/components/Search'
 
 import { SiMongodb as MongoIcon } from "react-icons/si";
 import { BiLogoPostgresql as PostgresIcon } from "react-icons/bi";
-import { ArrowPathIcon } from '@heroicons/react/24/outline'
+import { ArrowPathIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline'
 
 import { Button } from '@/components/ui/button'
 
@@ -75,8 +75,11 @@ export default function Saved ({
             <span>{order.name}</span>
             <span>{order.value}</span>
           </div>
-          <div className="flex justify-between">
+          <div className="flex items-center justify-between">
             <span className="text-xs">{new Date(order.createdAt).toLocaleTimeString()}</span>
+            <Button variant="ghost" className="hover:bg-violet-400/20 px-3 py-0" >
+              <EllipsisHorizontalIcon className="h-6 w-6" />
+            </Button>
           </div>
         </div>
       )}
