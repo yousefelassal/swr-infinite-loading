@@ -12,7 +12,7 @@ import Search from '@/components/Search'
 import Sheet from '@/components/Sheet'
 import Checkbox from '@/components/Checkbox'
 
-import { TrashIcon } from '@heroicons/react/24/outline'
+import { TrashIcon, ArrowPathIcon } from '@heroicons/react/24/outline'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -94,9 +94,10 @@ export default function Postgres ({
         `${orders.length} orders listed`
         }
       </p>
-      <button disabled={isRefreshing} onClick={() => mutate()}>
-        {isRefreshing ? "refreshing..." : "refresh"}
-      </button>
+      <Button variant="ghost" disabled={isRefreshing} onClick={() => mutate()}>
+        {isRefreshing ? <ArrowPathIcon className="h-5 w-5 animate-spin" />
+         : "Refresh"}
+      </Button>
     </div>
     <div className="flex flex-col gap-4">
       <Search />
