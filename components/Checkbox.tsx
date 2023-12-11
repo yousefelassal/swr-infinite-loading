@@ -2,14 +2,21 @@ import { useState } from 'react'
 import { BookmarkIcon as BookmarkOutline, ArrowPathIcon } from '@heroicons/react/24/outline'
 import { BookmarkIcon } from '@heroicons/react/24/solid'
 import { patch } from '@/services/mongo'
+import { updateSaved } from '@/app/(home)/postgres/actions'
 
-export default function Checkbox({ order, mutate }:any) {
+export default function Checkbox({ order, mutate, db }:any) {
   const [loading, setLoading] = useState(false)
 
     const handleCheck = async (newOrder:any) => {
-        await patch(newOrder)
-        mutate()
-        setLoading(false)
+        if (db === "mongo") {
+            await patch(newOrder)
+            mutate()
+            setLoading(false)
+        } else {
+            await updateSaved(newOrder)
+            mutate()
+            setLoading(false)
+        }
     }
   
   return (
