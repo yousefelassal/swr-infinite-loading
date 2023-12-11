@@ -84,7 +84,7 @@ export default function MySheet({ order, handleEdit }: any) {
                 type="submit"
                 onClick={() => {
                     const newOrder = {
-                        id: order.id,
+                        ...order,
                         name,
                         value
                     }
