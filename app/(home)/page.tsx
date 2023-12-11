@@ -118,7 +118,7 @@ export default function Mongo ({
             <span>{order.value}</span>
           </div>
           <div className="flex items-center">
-          <Checkbox order={order} mutate={mutate} />
+          <Checkbox order={order} mutate={mutate} db="mongo" />
           <Sheet order={order} handleEdit={handleEdit} />
           <Dialog>
           <TooltipProvider>
