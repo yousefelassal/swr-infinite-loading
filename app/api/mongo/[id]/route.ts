@@ -21,6 +21,16 @@ export async function PUT(
     return NextResponse.json({ message: 'Order updated successfully', order })
 }
 
+export async function PATCH(
+    req: NextRequest,
+    { params } : { params : { id: string }}
+) {
+    await dbConnect()
+    const body = await req.json()
+    const order = await Order.findByIdAndUpdate(params.id, body, { new: true })
+    return NextResponse.json({ message: 'Order updated successfully', order })
+}
+
 export async function DELETE(
     req: NextRequest,
     { params } : { params : { id: string }}
