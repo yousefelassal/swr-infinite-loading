@@ -81,10 +81,6 @@ export default function Postgres ({
     mutate()
   }
 
-  const handleCheck = async (order:any) => {
-    console.log(order)
-  }
-
   const orders = data ? [].concat(...data) : []
   const isLoadingMore = isLoading || (size > 0 && data && typeof data[size - 1] === 'undefined')
   const isEmpty = data?.[0]?.length === 0
@@ -117,7 +113,7 @@ export default function Postgres ({
             <span>{order.value}</span>
           </div>
           <div className="flex items-center">
-          <Checkbox order={order} handleCheck={handleCheck} />
+          <Checkbox order={order} mutate={mutate} db="postgres" />
           <Sheet order={order} handleEdit={handleEdit} />
         <Dialog>
           <TooltipProvider>
