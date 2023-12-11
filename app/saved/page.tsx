@@ -56,7 +56,7 @@ export default function Saved ({
          : "Refresh"}
       </Button>
     </div>
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid md:grid-cols-2 gap-4">
       <div className="col-span-full">
         <Search />
       </div>
