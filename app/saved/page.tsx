@@ -21,6 +21,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 const fetcher = (url:string) => fetch(url).then(res => res.json())
 const LIMIT = 4
@@ -88,11 +94,20 @@ export default function Saved ({
           <div className="flex items-center justify-between">
             <span className="text-xs">{new Date(order.createdAt).toLocaleTimeString()}</span>
             <DropdownMenu>
+              <TooltipProvider>
+              <Tooltip>
+              <TooltipTrigger asChild>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="hover:bg-violet-400/20 px-3 py-0" >
                   <EllipsisHorizontalIcon className="h-6 w-6" />
                 </Button>
               </DropdownMenuTrigger>
+              </TooltipTrigger>
+              <TooltipContent>
+                <span>Options</span>
+              </TooltipContent>
+              </Tooltip>
+              </TooltipProvider>
               <DropdownMenuContent>
                 <DropdownMenuItem>
                   <PencilSquareIcon className="h-4 w-4 mr-2" />
