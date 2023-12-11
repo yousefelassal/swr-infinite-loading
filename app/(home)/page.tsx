@@ -9,6 +9,7 @@ import Loading from '@/components/Loading'
 import Error from '@/components/Error'
 import Search from '@/components/Search'
 import Sheet from '@/components/Sheet'
+import Checkbox from '@/components/Checkbox'
 
 import { TrashIcon } from '@heroicons/react/24/outline'
 
@@ -29,7 +30,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
-import { put, del } from '@/services/mongo'
+import { put, del, patch } from '@/services/mongo'
 
 const getKey = (pageIndex:any, previousPageData:any) => {
   if (previousPageData && !previousPageData.length) return null // reached the end
@@ -116,7 +117,8 @@ export default function Mongo ({
             <span>{order.name}</span>
             <span>{order.value}</span>
           </div>
-          <div className="flex">
+          <div className="flex items-center">
+          <Checkbox order={order} mutate={mutate} />
           <Sheet order={order} handleEdit={handleEdit} />
           <Dialog>
           <TooltipProvider>
