@@ -24,6 +24,11 @@ export const put = async (order:any) => {
     return data;
 }
 
+export const patch = async (order:any) => {
+    const { data } = await axios.patch(`${baseURL}/${order.id}`, order);
+    return data;
+}
+
 export const del = async (id:any) => {
     await axios.delete(`${baseURL}/${id}`);
 }
