@@ -8,9 +8,19 @@ import Search from '@/components/Search'
 
 import { SiMongodb as MongoIcon } from "react-icons/si";
 import { BiLogoPostgresql as PostgresIcon } from "react-icons/bi";
-import { ArrowPathIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline'
+import { ArrowPathIcon,
+  EllipsisHorizontalIcon,
+  TrashIcon,
+  PencilSquareIcon
+} from '@heroicons/react/24/outline'
 
 import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 const fetcher = (url:string) => fetch(url).then(res => res.json())
 const LIMIT = 4
@@ -66,7 +76,7 @@ export default function Saved ({
       {orders.map((order:any) =>
         <div 
           key={order.id}
-          className="rounded-xl border bg-gradient-to-t from-violet-400/50 to-violet-400/60 border-violet-300/50 flex flex-col gap-4 shadow-lg p-4"
+          className="rounded-xl border bg-gradient-to-t from-violet-400/50 to-violet-400/60 border-violet-300/50 flex flex-col gap-3 shadow-lg p-4"
         >
           <div className="flex">
             {order.db === 'mongo' ? <MongoIcon className="h-6 w-6 text-slate-900" /> : <PostgresIcon className="h-6 w-6 text-slate-900" />}
@@ -77,9 +87,23 @@ export default function Saved ({
           </div>
           <div className="flex items-center justify-between">
             <span className="text-xs">{new Date(order.createdAt).toLocaleTimeString()}</span>
-            <Button variant="ghost" className="hover:bg-violet-400/20 px-3 py-0" >
-              <EllipsisHorizontalIcon className="h-6 w-6" />
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="hover:bg-violet-400/20 px-3 py-0" >
+                  <EllipsisHorizontalIcon className="h-6 w-6" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <PencilSquareIcon className="h-4 w-4 mr-2" />
+                  <span>Edit</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <TrashIcon className="h-4 w-4 mr-2" />
+                  <span>Delete</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       )}
