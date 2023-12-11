@@ -9,10 +9,10 @@ export async function GET(req: NextRequest) {
     const query = `%${q}%`
     const offset = (page - 1) * limit
     if (q === '') {
-        const orders = await sql`SELECT * FROM orders ORDER BY createdAt DESC OFFSET ${offset} LIMIT ${limit}`
+        const orders = await sql`SELECT * FROM orders ORDER BY "createdAt" DESC OFFSET ${offset} LIMIT ${limit}`
         return NextResponse.json(orders.rows)
     }
-    const orders = await sql`SELECT * FROM orders WHERE name ILIKE ${query} ORDER BY createdAt DESC OFFSET ${offset} LIMIT ${limit}`
+    const orders = await sql`SELECT * FROM orders WHERE name ILIKE ${query} ORDER BY "createdAt" DESC OFFSET ${offset} LIMIT ${limit}`
     return NextResponse.json(orders.rows)
 }
 
