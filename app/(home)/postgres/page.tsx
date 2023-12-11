@@ -10,6 +10,7 @@ import Loading from '@/components/Loading'
 import Error from '@/components/Error'
 import Search from '@/components/Search'
 import Sheet from '@/components/Sheet'
+import Checkbox from '@/components/Checkbox'
 
 import { TrashIcon } from '@heroicons/react/24/outline'
 
@@ -80,6 +81,10 @@ export default function Postgres ({
     mutate()
   }
 
+  const handleCheck = async (order:any) => {
+    console.log(order)
+  }
+
   const orders = data ? [].concat(...data) : []
   const isLoadingMore = isLoading || (size > 0 && data && typeof data[size - 1] === 'undefined')
   const isEmpty = data?.[0]?.length === 0
@@ -111,7 +116,8 @@ export default function Postgres ({
             <span>{order.name}</span>
             <span>{order.value}</span>
           </div>
-          <div className="flex">
+          <div className="flex items-center">
+          <Checkbox order={order} handleCheck={handleCheck} />
           <Sheet order={order} handleEdit={handleEdit} />
         <Dialog>
           <TooltipProvider>
