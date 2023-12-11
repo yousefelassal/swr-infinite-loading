@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 export interface Orders extends mongoose.Document {
   name: string
   value: number
+  saved: boolean
   createdAt: Date
 }
 
@@ -20,6 +21,12 @@ const OrderSchema = new mongoose.Schema<Orders>({
 
     type: Number,
     required: [true, 'Please provide a value for this Order.'],
+  },
+  saved: {
+    /* Whether this Order has saved by the user */
+
+    type: Boolean,
+    default: false,
   },
   createdAt: {
     /* The date this Order was created */
