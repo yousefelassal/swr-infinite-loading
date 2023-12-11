@@ -30,7 +30,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
-import { put, del, patch } from '@/services/mongo'
+import { put, del } from '@/services/mongo'
 
 const getKey = (pageIndex:any, previousPageData:any) => {
   if (previousPageData && !previousPageData.length) return null // reached the end
