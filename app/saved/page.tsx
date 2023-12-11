@@ -6,11 +6,14 @@ import Loading from '@/components/Loading'
 import Error from '@/components/Error'
 import Search from '@/components/Search'
 
+import { SiMongodb as MongoIcon } from "react-icons/si";
+import { BiLogoPostgresql as PostgresIcon } from "react-icons/bi";
 import { ArrowPathIcon } from '@heroicons/react/24/outline'
+
 import { Button } from '@/components/ui/button'
 
 const fetcher = (url:string) => fetch(url).then(res => res.json())
-const LIMIT = 5
+const LIMIT = 4
 
 export default function Saved ({
   searchParams
@@ -63,9 +66,18 @@ export default function Saved ({
       {orders.map((order:any) =>
         <div 
           key={order.id}
-          className="rounded-xl border bg-violet-900 border-violet-800 flex shadow-lg p-4"
+          className="rounded-xl border bg-gradient-to-t from-violet-400/50 to-violet-400/60 border-violet-300/50 flex flex-col gap-4 shadow-lg p-4"
         >
-          {order.db}
+          <div className="flex">
+            {order.db === 'mongo' ? <MongoIcon className="h-6 w-6 text-slate-900" /> : <PostgresIcon className="h-6 w-6 text-slate-900" />}
+          </div>
+          <div className="flex gap-2">
+            <span>{order.name}</span>
+            <span>{order.value}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-xs">{new Date(order.createdAt).toLocaleTimeString()}</span>
+          </div>
         </div>
       )}
     </div>
