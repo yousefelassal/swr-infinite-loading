@@ -57,6 +57,14 @@ export async function update(order:any) {
     `;
 }
 
+export async function updateSaved(order:any) {
+    await sql`
+      UPDATE orders
+      SET saved = ${order.saved}
+      WHERE id = ${order.id}
+    `;
+}
+
 export async function del(id:number) {
     await sql`
       DELETE FROM orders WHERE id = ${id}
