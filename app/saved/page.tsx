@@ -63,7 +63,7 @@ export default function Saved ({
   const isReachingEnd = isEmpty || (data && data[data.length - 1]?.length < 2)
   const isRefreshing = isValidating && data && data.length === size
 
-  return <div className="flex flex-col gap-3 w-full py-4">
+  return <div className="flex min-h-screen flex-col gap-3 w-full py-4">
     <div className="flex justify-between">
       <p>
         {isLoading ? "loading..." : 
