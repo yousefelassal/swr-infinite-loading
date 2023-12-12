@@ -5,6 +5,7 @@ export interface Orders extends mongoose.Document {
   value: number
   saved: boolean
   createdAt: Date
+  savedAt: Date
 }
 
 /* Orderschema will correspond to a collection in your MongoDB database. */
@@ -33,6 +34,12 @@ const OrderSchema = new mongoose.Schema<Orders>({
 
     type: Date,
     default: Date.now,
+  },
+  savedAt: {
+    /* The date this Order was saved */
+
+    type: Date,
+    default: null,
   },
 })
 
