@@ -38,7 +38,8 @@ export default function Checkbox({ order, mutate, db }:any) {
                     setLoading(true)
                     const newOrder = {
                         ...order,
-                        saved: !order.saved
+                        saved: !order.saved,
+                        savedAt: !order.saved ? new Date().toISOString() : null
                     }
                     handleCheck(newOrder)
                 }}
