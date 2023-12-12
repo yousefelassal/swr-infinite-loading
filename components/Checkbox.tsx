@@ -1,6 +1,9 @@
 import { useState } from 'react'
+import { cn } from '@/lib/utils'
+
 import { BookmarkIcon as BookmarkOutline, ArrowPathIcon } from '@heroicons/react/24/outline'
 import { BookmarkIcon } from '@heroicons/react/24/solid'
+
 import { patch } from '@/services/mongo'
 import { updateSaved } from '@/services/postgres'
 
@@ -11,7 +14,7 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-export default function Checkbox({ order, mutate, db }:any) {
+export default function Checkbox({ className, order, mutate, db }:any) {
   const [loading, setLoading] = useState(false)
 
     const handleCheck = async (newOrder:any) => {
@@ -30,7 +33,7 @@ export default function Checkbox({ order, mutate, db }:any) {
     <TooltipProvider>
     <Tooltip>
     <TooltipTrigger asChild>
-    <label htmlFor={`${order.id}`} className="block py-2 px-4 rounded-md hover:bg-violet-400/20 relative cursor-pointer select-none">
+    <label htmlFor={`${order.id}`} className={cn("block py-2 px-4 rounded-md hover:bg-violet-400/20 relative cursor-pointer select-none", className)}>
         <input 
             value={order.saved}
             onChange={() => {
