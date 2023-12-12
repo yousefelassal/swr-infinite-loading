@@ -90,10 +90,10 @@ export default function Saved ({
     <div className="grid md:grid-cols-2 gap-4">
       <div className="col-span-full">
         <Search />
-        {isEmpty ? <div className="flex px-4 py-8 items-center justify-center">Yay, no cards found.</div> : null}
-        {isLoading ? <SavedLoading /> :
-          error && <Error />}
       </div>
+      {isEmpty ? <div className="flex px-4 py-8 items-center justify-center">Yay, no cards found.</div> : null}
+      {isLoading ? <SavedLoading /> :
+        error ? <Error /> : null}
       {orders.map((order:any) =>
         <div 
           key={order.id}
