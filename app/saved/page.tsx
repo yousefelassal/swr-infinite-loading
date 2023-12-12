@@ -63,6 +63,16 @@ export default function Saved ({
   const isReachingEnd = isEmpty || (data && data[data.length - 1]?.length < 2)
   const isRefreshing = isValidating && data && data.length === size
 
+  const getLocaleDate = (date:string) => {
+    const newDate = new Date(date)
+    return newDate.toLocaleDateString()
+  }
+
+  const getLocaleTime = (date:string) => {
+    const newDate = new Date(date)
+    return newDate.toLocaleTimeString().split(':').slice(0, 2).join(':').concat(' ', newDate.toLocaleTimeString().split(' ')[1])
+  }
+
   return <div className="flex min-h-screen flex-col gap-3 w-full py-4">
     <div className="flex justify-between">
       <p>
@@ -85,15 +95,24 @@ export default function Saved ({
           key={order.id}
           className="rounded-xl border bg-gradient-to-t from-violet-400/50 to-violet-400/60 border-violet-300/50 flex flex-col gap-3 shadow-lg p-4"
         >
-          <div className="flex">
-            {order.db === 'mongo' ? <MongoIcon className="h-6 w-6 text-slate-900" /> : <PostgresIcon className="h-6 w-6 text-slate-900" />}
+          <div className="flex justify-between">
+            <div className="flex">
+              {order.db === 'mongo' ? <MongoIcon className="h-10 w-10 text-slate-900" /> : <PostgresIcon className="h-10 w-10 text-slate-900" />}
+            </div>
+            <div className="flex flex-col items-center gap-1 p-2 bg-violet-400/20 rounded-md">
+              <span className="text-xs">Saved at</span>
+              <span className="text-xs font-thin">{getLocaleTime(order.savedAt)}</span>
+              <span className="text-xs font-thin">{getLocaleDate(order.savedAt)}</span>
+            </div>
           </div>
           <div className="flex gap-2">
             <span>{order.name}</span>
             <span>{order.value}</span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-xs">{new Date(order.createdAt).toLocaleTimeString()}</span>
+            <div className="flex">
+              bookmark
+            </div>
             <DropdownMenu>
               <TooltipProvider>
               <Tooltip>
