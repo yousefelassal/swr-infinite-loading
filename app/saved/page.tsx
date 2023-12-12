@@ -28,6 +28,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import SavedLoading from '@/components/SavedLoading'
 
 const fetcher = (url:string) => fetch(url).then(res => res.json())
 const LIMIT = 4
@@ -54,9 +55,9 @@ export default function Saved ({
     fetcher
   );
 
-  if (isLoading) return <Loading />
+  // if (isLoading) return <Loading />
 
-  if (error) return <Error />
+  // if (error) return <Error />
 
   const orders = data ? [].concat(...data) : []
   const isLoadingMore = isLoading || (size > 0 && data && typeof data[size - 1] === 'undefined')
@@ -90,6 +91,8 @@ export default function Saved ({
       <div className="col-span-full">
         <Search />
         {isEmpty ? <div className="flex px-4 py-8 items-center justify-center">Yay, no cards found.</div> : null}
+        {isLoading ? <SavedLoading /> :
+          error && <Error />}
       </div>
       {orders.map((order:any) =>
         <div 
