@@ -114,7 +114,12 @@ export default function Saved ({
             <span>{order.value}</span>
           </div>
           <div className="flex items-center justify-between">
-            <Checkbox order={order} mutate={mutate} db={order.db} />
+            <Checkbox
+              className="px-3"
+              order={order}
+              mutate={mutate}
+              db={order.db}
+            />
             <DropdownMenu>
               <TooltipProvider>
               <Tooltip>
