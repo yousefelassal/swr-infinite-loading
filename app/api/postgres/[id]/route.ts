@@ -23,7 +23,7 @@ export async function PATCH(
     { params } : { params : { id: string }}
 ) {
     const body = await req.json()
-    const order = await sql`UPDATE orders SET saved = ${body.saved} WHERE id = ${params.id} RETURNING *`
+    const order = await sql`UPDATE orders SET saved = ${body.saved}, "savedAt" = ${body.savedAt} WHERE id = ${params.id} RETURNING *`
     return NextResponse.json({ message: 'Order updated successfully', order })
 }
 
