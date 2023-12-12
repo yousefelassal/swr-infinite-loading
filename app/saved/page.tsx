@@ -78,6 +78,7 @@ export default function Saved ({
     <div className="grid md:grid-cols-2 gap-4">
       <div className="col-span-full">
         <Search />
+        {isEmpty ? <div className="flex px-4 py-8 items-center justify-center">Yay, no orders found.</div> : null}
       </div>
       {orders.map((order:any) =>
         <div 
@@ -124,17 +125,20 @@ export default function Saved ({
       )}
     </div>
     <div className="flex col-span-full">
-    <button
-      className="flex-1 items-center justify-center rounded-xl text-white border border-slate-500 p-4 bg-slate-600 hover:bg-slate-700 hover:border-slate-600 transition-all disabled:bg-slate-400 disabled:border-slate-400 disabled:cursor-not-allowed"
-      disabled={isLoadingMore || isReachingEnd}
-      onClick={() => setSize(size + 1)}
-    >
-      {isLoadingMore
-        ? "loading..."
-        : isReachingEnd
-        ? "no more cards"
-        : "load more"}
-    </button>
+      {isEmpty ? null
+      :
+      <button
+        className="flex-1 items-center justify-center rounded-xl text-white border border-slate-500 p-4 bg-slate-600 hover:bg-slate-700 hover:border-slate-600 transition-all disabled:bg-slate-400 disabled:border-slate-400 disabled:cursor-not-allowed"
+        disabled={isLoadingMore || isReachingEnd}
+        onClick={() => setSize(size + 1)}
+      >
+        {isLoadingMore
+          ? "loading..."
+          : isReachingEnd
+          ? "no more cards"
+          : "load more"}
+      </button>
+      }
     </div>
   </div>
 }
