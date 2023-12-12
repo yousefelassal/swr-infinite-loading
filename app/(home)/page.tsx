@@ -108,7 +108,7 @@ export default function Mongo ({
       <Search />
       {isEmpty ? <div className="flex px-4 py-8 items-center justify-center">Yay, no cards found.</div> : null}
       {isLoading ? <ItemsLoading /> :
-      error && <Error />}
+        error ? <Error /> : null}
       {orders.map((order:any) =>
         <div 
           key={order.id}
