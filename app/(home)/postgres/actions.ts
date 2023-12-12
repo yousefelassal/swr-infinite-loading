@@ -60,7 +60,7 @@ export async function update(order:any) {
 export async function updateSaved(order:any) {
     await sql`
       UPDATE orders
-      SET saved = ${order.saved}
+      SET saved = ${order.saved}, "savedAt" = ${order.savedAt}
       WHERE id = ${order.id}
     `;
 }
