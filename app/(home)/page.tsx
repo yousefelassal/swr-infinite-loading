@@ -169,7 +169,7 @@ export default function Mongo ({
       {isLoadingMore
         ? "loading..."
         : isReachingEnd
-        ? "no more issues"
+        ? "no more cards"
         : "load more"}
     </button>
     <Form 

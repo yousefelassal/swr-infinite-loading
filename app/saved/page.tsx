@@ -132,7 +132,7 @@ export default function Saved ({
       {isLoadingMore
         ? "loading..."
         : isReachingEnd
-        ? "no more issues"
+        ? "no more cards"
         : "load more"}
     </button>
     </div>
