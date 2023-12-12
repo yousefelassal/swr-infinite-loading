@@ -5,6 +5,7 @@ import useSWRInfinite from 'swr/infinite'
 import Loading from '@/components/Loading'
 import Error from '@/components/Error'
 import Search from '@/components/Search'
+import Checkbox from '@/components/Checkbox'
 
 import { SiMongodb as MongoIcon } from "react-icons/si";
 import { BiLogoPostgresql as PostgresIcon } from "react-icons/bi";
@@ -110,9 +111,7 @@ export default function Saved ({
             <span>{order.value}</span>
           </div>
           <div className="flex items-center justify-between">
-            <div className="flex">
-              bookmark
-            </div>
+            <Checkbox order={order} mutate={mutate} db={order.db} />
             <DropdownMenu>
               <TooltipProvider>
               <Tooltip>
