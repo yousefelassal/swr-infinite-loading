@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
     
     let allSaved:any = []
 
-    const postgresSaved = await sql`SELECT * FROM orders WHERE name ILIKE ${query} AND saved = true ORDER BY "createdAt" DESC OFFSET ${offset} LIMIT ${limit/2}`
+    const postgresSaved = await sql`SELECT * FROM orders WHERE name ILIKE ${query} AND saved = true ORDER BY "savedAt" DESC OFFSET ${offset} LIMIT ${limit/2}`
     const postgres = postgresSaved.rows.map((row:any) => {
         return {
             ...row,
@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
     allSaved = allSaved.concat(postgres)
 
     await dbConnect()
-    const mongoSaved = await Order.find({ name: { $regex: q, $options: 'i' }, saved:true }).sort({ createdAt: -1 }).skip((page - 1) * limit).limit(limit/2)
+    const mongoSaved = await Order.find({ name: { $regex: q, $options: 'i' }, saved:true }).sort({ savedAt: -1 }).skip((page - 1) * limit).limit(limit/2)
     const mongo = mongoSaved.map((row:any) => {
         return {
             ...row._doc,
@@ -32,5 +32,5 @@ export async function GET(req: NextRequest) {
     })
     allSaved = allSaved.concat(mongo)
 
-    return NextResponse.json(allSaved.sort((a:any, b:any) => b.createdAt - a.createdAt))
+    return NextResponse.json(allSaved.sort((a:any, b:any) => b.savedAt - a.savedAt))
 }
