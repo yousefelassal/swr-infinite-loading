@@ -101,7 +101,7 @@ export default function Postgres ({
     </div>
     <div className="flex flex-col gap-4">
       <Search />
-      {isEmpty ? <div className="flex px-4 py-8 items-center justify-center">Yay, no orders found.</div> : null}
+      {isEmpty ? <div className="flex px-4 py-8 items-center justify-center">Yay, no cards found.</div> : null}
       {isLoading ? <ItemsLoading /> :
       error && <Error />}
       {orders.map((order:any) =>
