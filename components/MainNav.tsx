@@ -1,12 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { HomeIcon, BookmarkIcon, CodeBracketIcon  } from "@heroicons/react/24/solid"
 import styles from '@/styles/nav.module.css'
 import { useWindowSize } from "@uidotdev/usehooks";
+import { useIsMounted } from "@/hooks/useIsMounted"
 
 type Tab = {
     href: string
@@ -17,7 +18,9 @@ type Tab = {
 
 export default function MainNav() {
   const [open, setOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const { width } = useWindowSize()
+  const isMounted = useIsMounted()
   const pathname = usePathname()
   const tabs:Tab[] = [
     { href: '/', label: 'Home', isActive: pathname === '/' || pathname === '/postgres', icon: HomeIcon },
@@ -28,9 +31,20 @@ export default function MainNav() {
     setOpen(!open)
   }
 
+  useEffect(() => {
+    if(isMounted()) {
+        setMounted(true)
+    }
+    }, [isMounted])
+
+
   const animateCss = () => {
     if(width! > 768) return
-    return open ? `flex ${styles.slideInTop}` : `${styles.slideOutTop}`
+    return (
+        mounted ?
+        (open ? `flex ${styles.slideInTop}` : `${styles.slideOutTop}`)
+        : 'hidden'
+    )
   }
 
   return (
