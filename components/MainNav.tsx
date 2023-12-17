@@ -1,9 +1,12 @@
 'use client'
 
+import { useState } from 'react'
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { HomeIcon, BookmarkIcon, CodeBracketIcon  } from "@heroicons/react/24/solid"
+import styles from '@/styles/nav.module.css'
+import { useWindowSize } from "@uidotdev/usehooks";
 
 type Tab = {
     href: string
@@ -13,15 +16,40 @@ type Tab = {
 }
 
 export default function MainNav() {
+  const [open, setOpen] = useState(false)
+  const { width } = useWindowSize()
   const pathname = usePathname()
   const tabs:Tab[] = [
     { href: '/', label: 'Home', isActive: pathname === '/' || pathname === '/postgres', icon: HomeIcon },
     { href: '/saved', label: 'Saved', isActive: pathname === '/saved', icon: BookmarkIcon },
     { href: '/documentation', label: 'Documentation', isActive: pathname === '/documentation', icon: CodeBracketIcon },
   ]
+  const toggle = () => {
+    setOpen(!open)
+  }
+
+  const animateCss = () => {
+    if(width! > 768) return
+    return open ? `flex ${styles.slideInTop}` : `hidden ${styles.slideOutTop}`
+  }
+
   return (
-    <div className="hidden md:flex sticky top-4">
-        <div className="flex flex-col gap-3 h-fit p-2 w-full rounded-2xl bg-violet-950/20 border-violet-900/20">
+    <div className="sticky top-4 md:top-10">
+        { open ? <div className="fixed inset-0 bg-black/50 z-10" onClick={toggle} /> : null}
+        <div className="md:hidden">
+            <label className={styles.bar} htmlFor="check">
+                <input
+                    type="checkbox"
+                    id="check"
+                    checked={open}
+                    onChange={toggle}
+                />
+                <span className={styles.top}></span>
+                <span className={styles.middle}></span>
+                <span className={styles.bottom}></span>
+            </label>
+        </div>
+        <div className={`${animateCss()} absolute transition-all md:flex flex-col gap-3 h-fit p-2 w-full rounded-2xl bg-violet-950/20 border-violet-900/20`}>
             {tabs.map((tab) => (
                 <Link href={tab.href} key={tab.label} className={`flex rounded-xl flex-col gap-1 relative items-center sm:text-lg justify-center p-4 ${tab.isActive ? 'text-white' : 'text-gray-300 hover:text-gray-100'} cursor-pointer transition-colors`}>
                     <div className="flex w-full items-center justify-start gap-2">
