@@ -42,7 +42,7 @@ export default function MainNav() {
     if(width! > 768) return
     return (
         mounted ?
-        (open ? `flex ${styles.slideInTop}` : `${styles.slideOutTop}`)
+        (open ? 'translate-y-0' : '-translate-y-[200%]')
         : 'hidden'
     )
   }
@@ -63,7 +63,7 @@ export default function MainNav() {
                 <span className={styles.bottom}></span>
             </label>
         </div>
-        <div className={`${animateCss()} absolute top-10 md:top-0 transition-all md:flex flex-col gap-3 h-fit p-2 w-full rounded-2xl bg-violet-950 md:bg-violet-950/20 border-violet-900 md:border-violet-900/20 z-[9999] shadow-md`}>
+        <div className={`${animateCss()} absolute top-10 md:top-0 transition-all duration-500 md:flex flex-col gap-3 h-fit p-2 w-full rounded-2xl bg-violet-950 md:bg-violet-950/20 border-violet-900 md:border-violet-900/20 z-[9999] shadow-md`}>
             {tabs.map((tab) => (
                 <Link 
                     href={tab.href}
