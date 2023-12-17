@@ -93,8 +93,8 @@ export default function Saved ({
       </div>
       {isEmpty ? <div className="flex px-4 py-8 items-center justify-center">Yay, no cards found.</div> : null}
       {isLoading ? <SavedLoading /> :
-        error ? <Error /> : null}
-      {orders.map((order:any) =>
+        error ? <div className="col-span-full"><Error /></div> :
+      orders.map((order:any) =>
         <div 
           key={order.id}
           className="rounded-xl border bg-gradient-to-t from-violet-400/50 to-violet-400/60 border-violet-300/50 flex flex-col gap-3 shadow-lg p-4"
