@@ -35,7 +35,7 @@ export default function MainNav() {
 
   return (
     <div className="sticky top-4 md:top-10">
-        { open ? <div className="fixed inset-0 bg-black/50 z-10" onClick={toggle} /> : null}
+        { open ? <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-10" onClick={toggle} /> : null}
         <div className="md:hidden">
             <label className={styles.bar} htmlFor="check">
                 <input
@@ -49,7 +49,7 @@ export default function MainNav() {
                 <span className={styles.bottom}></span>
             </label>
         </div>
-        <div className={`${animateCss()} absolute transition-all md:flex flex-col gap-3 h-fit p-2 w-full rounded-2xl bg-violet-950/20 border-violet-900/20`}>
+        <div className={`${animateCss()} absolute transition-all md:flex flex-col gap-3 h-fit p-2 w-full rounded-2xl bg-violet-950/20 border-violet-900/20 z-50`}>
             {tabs.map((tab) => (
                 <Link href={tab.href} key={tab.label} className={`flex rounded-xl flex-col gap-1 relative items-center sm:text-lg justify-center p-4 ${tab.isActive ? 'text-white' : 'text-gray-300 hover:text-gray-100'} cursor-pointer transition-colors`}>
                     <div className="flex w-full items-center justify-start gap-2">
