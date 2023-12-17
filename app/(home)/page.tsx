@@ -15,8 +15,6 @@ import { ArrowPathIcon } from '@heroicons/react/24/outline'
 
 import { Button } from "@/components/ui/button"
 
-import { put } from '@/services/mongo'
-
 const getKey = (pageIndex:any, previousPageData:any) => {
   if (previousPageData && !previousPageData.length) return null // reached the end
   return `/api?page=${pageIndex}&limit=2`                    // SWR key
@@ -50,11 +48,6 @@ export default function Mongo ({
   // if (isLoading) return <Loading />
   
   // if (error) return <Error />
-
-  const handleEdit = async (order:any) => {
-    await put(order)
-    mutate()
-  }
 
   const orders = data ? [].concat(...data) : []
   const isLoadingMore = isLoading || (size > 0 && data && typeof data[size - 1] === 'undefined')
@@ -90,7 +83,7 @@ export default function Mongo ({
           </div>
           <div className="flex items-center">
           <Checkbox order={order} mutate={mutate} db="mongo" />
-          <Sheet order={order} handleEdit={handleEdit} />
+          <Sheet order={order} db="mongo" mutate={mutate} />
           <DeleteDialog order={order} mutate={mutate} db="mongo" />
           </div>
         </div>)}
