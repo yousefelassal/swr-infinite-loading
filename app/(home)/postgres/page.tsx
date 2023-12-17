@@ -51,11 +51,6 @@ export default function Postgres ({
   
   // if (error) return <div>failed to load</div>
 
-  const handleEdit = async (order:any) => {
-    await update(order)
-    mutate()
-  }
-
   const orders = data ? [].concat(...data) : []
   const isLoadingMore = isLoading || (size > 0 && data && typeof data[size - 1] === 'undefined')
   const isEmpty = data?.[0]?.length === 0
@@ -90,7 +85,7 @@ export default function Postgres ({
           </div>
           <div className="flex items-center">
           <Checkbox order={order} mutate={mutate} db="postgres" />
-          <Sheet order={order} handleEdit={handleEdit} />
+          <Sheet order={order} db="postgres" mutate={mutate} />
           <DeleteDialog order={order} mutate={mutate} db="postgres" />
         </div>
         </div>)}
