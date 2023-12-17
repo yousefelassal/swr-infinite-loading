@@ -22,22 +22,8 @@ import {
 import { del as delMongo } from '@/services/mongo'
 import { del as delPostgres} from '@/services/postgres'
 
-export default function DeleteDialog({ className, order, mutate, db, dropdown = false }:any) {
-  const [isOpen, setIsOpen] = useState(false)
-  const form = useForm()
-  const handleDelete = async () => {
-    if (db === "mongo") {
-      await delMongo(order.id)
-      mutate()
-      setIsOpen(false)
-    } else {
-      await delPostgres(order.id)
-      mutate()
-      setIsOpen(false)
-    }
-  }
-
-  const DialogBody = () => {
+const DialogBody = ({ handleDelete }:any) => {
+    const form = useForm()
     return (
         <DialogContent>
             <DialogHeader>
@@ -60,8 +46,23 @@ export default function DeleteDialog({ className, order, mutate, db, dropdown = 
                 </DialogClose>
             </div>
         </DialogContent>
-        )
+    )
+}
+
+export default function DeleteDialog({ className, order, mutate, db, dropdown = false }:any) {
+  const [isOpen, setIsOpen] = useState(false)
+  const handleDelete = async () => {
+    if (db === "mongo") {
+      await delMongo(order.id)
+      mutate()
+      setIsOpen(false)
+    } else {
+      await delPostgres(order.id)
+      mutate()
+      setIsOpen(false)
     }
+  }
+
   if(dropdown) {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -69,7 +70,7 @@ export default function DeleteDialog({ className, order, mutate, db, dropdown = 
             <TrashIcon className="h-4 w-4 mr-2" />
             <span>Delete</span>
           </DialogTrigger>
-          <DialogBody />
+          <DialogBody handleDelete={handleDelete} />
         </Dialog>
         )
   }
@@ -89,7 +90,7 @@ export default function DeleteDialog({ className, order, mutate, db, dropdown = 
         </TooltipContent>
         </Tooltip>
         </TooltipProvider>
-        <DialogBody />
+        <DialogBody handleDelete={handleDelete} />
     </Dialog>
   )
 }
