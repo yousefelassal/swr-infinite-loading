@@ -1,7 +1,6 @@
 'use client'
 
 import useSWRInfinite from 'swr/infinite'
-import { useState } from 'react'
 
 import Form from '@/components/Form'
 import ItemsLoading from '@/components/ItemsLoading'
@@ -10,27 +9,13 @@ import Error from '@/components/Error'
 import Search from '@/components/Search'
 import Sheet from '@/components/Sheet'
 import Checkbox from '@/components/Checkbox'
+import DeleteDialog from '@/components/DeleteDialog'
 
-import { TrashIcon, ArrowPathIcon } from '@heroicons/react/24/outline'
+import { ArrowPathIcon } from '@heroicons/react/24/outline'
 
 import { Button } from "@/components/ui/button"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
 
-import { put, del } from '@/services/mongo'
+import { put } from '@/services/mongo'
 
 const getKey = (pageIndex:any, previousPageData:any) => {
   if (previousPageData && !previousPageData.length) return null // reached the end
@@ -45,9 +30,6 @@ export default function Mongo ({
 }: {
   searchParams: { q: string };
 }) {
-  const [name, setName] = useState('')
-  const [value, setValue] = useState('')
-  const [open, setOpen] = useState(false)
   const query = searchParams.q ?? '';
   const {
     data,
@@ -68,18 +50,6 @@ export default function Mongo ({
   // if (isLoading) return <Loading />
   
   // if (error) return <Error />
-
-  const handleSubmit = async () => {
-    await fetch(`api/mongo`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, value })
-    })
-    mutate()
-    setName('')
-    setValue('')
-    setOpen(false)
-  }
 
   const handleEdit = async (order:any) => {
     await put(order)
@@ -121,43 +91,7 @@ export default function Mongo ({
           <div className="flex items-center">
           <Checkbox order={order} mutate={mutate} db="mongo" />
           <Sheet order={order} handleEdit={handleEdit} />
-          <Dialog>
-          <TooltipProvider>
-          <Tooltip>
-          <TooltipTrigger asChild>
-          <DialogTrigger asChild>
-            <Button className="hover:bg-violet-400/20 text-violet-400" variant="ghost">
-              <TrashIcon className="h-5 w-5" />
-            </Button>
-          </DialogTrigger>
-          </TooltipTrigger>
-          <TooltipContent>
-            Delete card
-          </TooltipContent>
-          </Tooltip>
-          </TooltipProvider>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Delete Card</DialogTitle>
-              <DialogDescription>
-                  Are you sure you want to delete this card?
-              </DialogDescription>
-            </DialogHeader>
-            <div className="flex justify-center gap-8">
-              <DialogClose>Cancel</DialogClose>
-              <DialogClose asChild>
-              <Button variant="destructive" onClick={
-                async () => {
-                  await del(order.id)
-                  mutate()
-                }}
-              >
-                Delete
-              </Button>
-            </DialogClose>
-            </div>
-          </DialogContent>
-        </Dialog>
+          <DeleteDialog order={order} mutate={mutate} db="mongo" />
           </div>
         </div>)}
     </div>
@@ -172,12 +106,6 @@ export default function Mongo ({
         ? "no more cards"
         : "load more"}
     </button>
-    <Form 
-      setName={setName}
-      setValue={setValue}
-      handleSubmit={handleSubmit}
-      isOpen={open}
-      setIsOpen={setOpen}
-    />
+    <Form mutate={mutate} db="mongo" />
   </div>
 }
