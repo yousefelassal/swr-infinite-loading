@@ -7,6 +7,7 @@ import SavedLoading from '@/components/SavedLoading'
 import Error from '@/components/Error'
 import Search from '@/components/Search'
 import Checkbox from '@/components/Checkbox'
+import DeleteDialog from '@/components/DeleteDialog'
 
 import { SiMongodb as MongoIcon } from "react-icons/si";
 import { BiLogoPostgresql as PostgresIcon } from "react-icons/bi";
@@ -140,9 +141,13 @@ export default function Saved ({
                   <PencilSquareIcon className="h-4 w-4 mr-2" />
                   <span>Edit</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <TrashIcon className="h-4 w-4 mr-2" />
-                  <span>Delete</span>
+                <DropdownMenuItem onClick={(e) => {e.preventDefault()}}>
+                  <DeleteDialog
+                    order={order}
+                    mutate={mutate}
+                    db={order.db}
+                    dropdown
+                  />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
