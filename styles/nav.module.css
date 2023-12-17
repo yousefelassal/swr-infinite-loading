@@ -1,0 +1,214 @@
+.bar input[type = "checkbox"] {
+    -webkit-appearance: none;
+    display: none;
+    visibility: hidden;
+  }
+  
+  .bar {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    width: 25px;
+    height: 20px;
+    z-index: 1000;
+  }
+  
+  .bar span {
+    position: absolute;
+    width: 22.5px;
+    height: 3.5px;
+    background: #f1faee;
+    border-radius: 200px;
+    display: inline-block;
+    transition: 0.3s ease;
+    left: 0;
+  }
+  
+  .bar span.top {
+    top: 0;
+  }
+  
+  .bar span.middle {
+    top: 8.5px;
+  }
+  
+  .bar span.bottom {
+    bottom: 0;
+  }
+  
+  .bar input[type]:checked ~ span.top {
+    transform: rotate(45deg);
+    transform-origin: top left;
+    width: 24px;
+    left: 2.5px;
+  }
+  
+  .bar input[type]:checked ~ span.bottom {
+    transform: rotate(-45deg);
+    transform-origin: top left;
+    width: 24px;
+    bottom: -0.5px;
+    box-shadow: 0 0 5px #495057;
+  }
+  
+  .bar input[type]:checked ~ span.middle {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+
+.slideInLeft {
+    animation-name: slideInFromLeft;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+
+.slideOutLeft {
+    animation-name: slideOutFromLeft;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+
+.slideInRight {
+    animation-name: slideInFromRight;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+
+.slideOutRight {
+    animation-name: slideOutFromRight;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+
+.slideInTop {
+    animation-name: slideInFromTop;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+
+.slideOutTop {
+    animation-name: slideOutFromTop;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+
+@keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideOutFromLeft {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideOutFromRight {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  @keyframes slideInFromTop {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideOutFromTop {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-100%);
+    }
+  }
+  
+  @keyframes slideInFromBottom {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideOutFromBottom {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(100%);
+    }
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  @keyframes scaleIn {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes scaleOut {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  
+  @keyframes rotateIn {
+    0% {
+      transform: rotate(-180deg);
+    }
+    100% {
+      transform: rotate(0);
+    }
+}
