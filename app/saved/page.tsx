@@ -76,7 +76,8 @@ export default function Saved ({
     return newDate.toLocaleTimeString().split(':').slice(0, 2).join(':').concat(' ', newDate.toLocaleTimeString().split(' ')[1])
   }
 
-  return <div className="flex min-h-screen flex-col gap-3 w-full py-4">
+  return <div className="flex min-h-screen flex-col gap-3 w-full py-4 pt-14">
+    <h1 className="text-2xl font-bold md:hidden">Saved</h1>
     <div className="flex justify-between">
       <p>
         {isLoading ? "loading..." : 
