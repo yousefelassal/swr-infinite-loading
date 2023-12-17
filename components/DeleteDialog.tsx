@@ -65,7 +65,7 @@ export default function DeleteDialog({ className, order, mutate, db, dropdown = 
   if(dropdown) {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogTrigger>
+          <DialogTrigger className="flex w-full">
             <TrashIcon className="h-4 w-4 mr-2" />
             <span>Delete</span>
           </DialogTrigger>
