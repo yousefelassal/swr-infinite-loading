@@ -51,7 +51,19 @@ export default function MainNav() {
         </div>
         <div className={`${animateCss()} absolute top-10 md:top-0 transition-all md:flex flex-col gap-3 h-fit p-2 w-full rounded-2xl bg-violet-950 md:bg-violet-950/20 border-violet-900 md:border-violet-900/20 z-[9999] shadow-md`}>
             {tabs.map((tab) => (
-                <Link href={tab.href} key={tab.label} className={`flex rounded-xl flex-col gap-1 relative items-center sm:text-lg justify-center p-4 ${tab.isActive ? 'text-white' : 'text-gray-300 hover:text-gray-100'} cursor-pointer transition-colors`}>
+                <Link 
+                    href={tab.href}
+                    key={tab.label}
+                    className={`flex rounded-xl flex-col gap-1 relative items-center sm:text-lg justify-center p-4 ${tab.isActive ? 'text-white' : 'text-gray-300 hover:text-gray-100'} cursor-pointer transition-colors`}
+                    onClick={
+                        () => {
+                            if(width! > 768) return
+                            setTimeout(() => {
+                                setOpen(false)
+                            }, 700)
+                        }
+                    }
+                >
                     <div className="flex w-full items-center justify-start gap-2">
                         <tab.icon className="w-5 h-5" />
                         <span className="z-10 font-medium">{tab.label}</span>
