@@ -1,8 +1,10 @@
 <br />
 
-# MongoDB `GET` request 
+# MongoDB 
+[visit endpoint _/api/mongo_](/api/mongo)
 
-[visit endpoint `/api/mongo`](/api/mongo)
+## _GET_ Request 
+
 ```app/api/mongo.ts
 export async function GET(req: NextRequest) {
   await dbConnect()
@@ -20,9 +22,11 @@ export async function GET(req: NextRequest) {
 
 <br />
 
-# PostgreSQL `GET` request
+# PostgreSQL 
+[visit endpoint _/api/postgres_](/api/postgres)
 
-[visit endpoint `/api/postgres`](/api/postgres)
+## _GET_ Request
+
 ```app/api/postgres.ts
 export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams
