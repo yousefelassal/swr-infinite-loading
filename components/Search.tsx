@@ -25,7 +25,7 @@ export default function Search({ disabled }: { disabled?: boolean }) {
   }, 300);
 
   return (
-    <div className="relative">
+    <div className="relative z-0">
       <label htmlFor="search" className="sr-only">
         Search
       </label>
