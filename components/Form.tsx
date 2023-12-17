@@ -40,8 +40,34 @@ function Submit(){
      </button>
 }
 
-export default function Form({ isOpen, setIsOpen, setName, setValue, handleSubmit }:any) {
+export default function Form({ mutate, db }:any) {
+  const [name, setName] = useState('')
+  const [value, setValue] = useState('')
+  const [isOpen, setIsOpen] = useState(false)
   // const [state, formAction] = useFormState(createOrder, initialState)
+  const handleSubmit = async () => {
+    if (db === "mongo") {
+      await fetch(`api/mongo`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, value })
+      })
+      mutate()
+      setName('')
+      setValue('')
+      setIsOpen(false)
+    } else {
+      await fetch(`api/postgres`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, value })
+      })
+      mutate()
+      setName('')
+      setValue('')
+      setIsOpen(false)
+    }
+  }
   const form = useForm()
     return <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <TooltipProvider>
