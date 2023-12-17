@@ -8,14 +8,11 @@ import Error from '@/components/Error'
 import Search from '@/components/Search'
 import Checkbox from '@/components/Checkbox'
 import DeleteDialog from '@/components/DeleteDialog'
+import Sheet from '@/components/Sheet'
 
 import { SiMongodb as MongoIcon } from "react-icons/si";
 import { BiLogoPostgresql as PostgresIcon } from "react-icons/bi";
-import { ArrowPathIcon,
-  EllipsisHorizontalIcon,
-  TrashIcon,
-  PencilSquareIcon
-} from '@heroicons/react/24/outline'
+import { ArrowPathIcon, EllipsisHorizontalIcon,} from '@heroicons/react/24/outline'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -30,6 +27,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+
+import { put } from '@/services/mongo'
+import { update } from '@/services/postgres'
 
 const fetcher = (url:string) => fetch(url).then(res => res.json())
 const LIMIT = 4
@@ -137,9 +137,13 @@ export default function Saved ({
               </Tooltip>
               </TooltipProvider>
               <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <PencilSquareIcon className="h-4 w-4 mr-2" />
-                  <span>Edit</span>
+                <DropdownMenuItem onClick={(e) => {e.preventDefault()}}>
+                  <Sheet
+                    order={order}
+                    mutate={mutate}
+                    db={order.db}
+                    dropdown
+                  />
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={(e) => {e.preventDefault()}}>
                   <DeleteDialog
