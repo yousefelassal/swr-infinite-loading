@@ -3,6 +3,7 @@
 import useSWRInfinite from 'swr/infinite'
 
 import Loading from '@/components/Loading'
+import SavedLoading from '@/components/SavedLoading'
 import Error from '@/components/Error'
 import Search from '@/components/Search'
 import Checkbox from '@/components/Checkbox'
@@ -28,7 +29,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import SavedLoading from '@/components/SavedLoading'
 
 const fetcher = (url:string) => fetch(url).then(res => res.json())
 const LIMIT = 4
