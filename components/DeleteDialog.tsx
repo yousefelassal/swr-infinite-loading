@@ -48,6 +48,7 @@ export default function DeleteDialog({ className, order, mutate, db, dropdown = 
             </DialogHeader>
             <div className="flex justify-center gap-8">
                 <DialogClose>Cancel</DialogClose>
+                <DialogClose asChild>
                 <Button
                     variant="destructive"
                     type="submit"
@@ -56,6 +57,7 @@ export default function DeleteDialog({ className, order, mutate, db, dropdown = 
                 >
                     {form.formState.isSubmitting ? "Deleting..." : "Delete"}
                 </Button>
+                </DialogClose>
             </div>
         </DialogContent>
         )
@@ -72,22 +74,22 @@ export default function DeleteDialog({ className, order, mutate, db, dropdown = 
         )
   }
   return (
-    <Dialog>
-        <TooltipProvider>
-          <Tooltip>
-          <TooltipTrigger asChild>
-          <DialogTrigger asChild>
-            <Button className={cn("hover:bg-violet-400/20 text-violet-400", className)} variant="ghost">
-              <TrashIcon className="h-5 w-5" />
-            </Button>
-          </DialogTrigger>
-          </TooltipTrigger>
-          <TooltipContent>
-            Delete card
-          </TooltipContent>
-          </Tooltip>
-          </TooltipProvider>
-          <DialogBody />
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <TooltipProvider>
+        <Tooltip>
+        <TooltipTrigger asChild>
+        <DialogTrigger asChild>
+          <Button className={cn("hover:bg-violet-400/20 text-violet-400", className)} variant="ghost">
+            <TrashIcon className="h-5 w-5" />
+          </Button>
+        </DialogTrigger>
+        </TooltipTrigger>
+        <TooltipContent>
+        Delete card
+        </TooltipContent>
+        </Tooltip>
+        </TooltipProvider>
+        <DialogBody />
     </Dialog>
   )
 }
