@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { motion } from "framer-motion"
@@ -40,21 +40,18 @@ export default function MainNav() {
     }
     }, [isMounted])
 
+    const handleScroll = useCallback(() => {
+        const scrollPosition = window.scrollY
+        const headingList = Array.from(document.querySelectorAll('h1'))
+        const headingIds = headingList.map((heading:any) => heading.id)
+        const headingPositions = headingList.map((heading:any) => heading.offsetTop)
+        const headingIndex = headingPositions.findIndex((position:any) => scrollPosition < position)
+        const activeHeadingId = headingIds[headingIndex - 1]
+
+        setActiveHeading(activeHeadingId)
+    }, [])
+
     useEffect(() => {
-        const handleScroll = () => {
-            const scrollPosition = window.scrollY
-    
-            const currentHeading = headings.find((heading:any) => {
-                const headingTop = heading.offsetTop
-                const headingBottom = headingTop + heading.offsetHeight
-    
-                return scrollPosition >= headingTop && scrollPosition < headingBottom
-            })
-    
-            if(currentHeading) {
-                setActiveHeading(currentHeading.id)
-            }
-        }
         if(pathname === '/documentation') {
             const headingList = Array.from(document.querySelectorAll('h1'))
 
@@ -71,7 +68,7 @@ export default function MainNav() {
             }
         }
 
-    }, [pathname, headings])
+    }, [pathname, handleScroll])
 
   const animateCss = () => {
     if(width! > 768) return
@@ -156,7 +153,7 @@ export default function MainNav() {
                                                 <motion.div 
                                                     layout
                                                     layoutId="line"
-                                                    className="absolute -left-3 w-4 h-full rounded-xl border border-violet-900/20 bg-gradient-to-b from-violet-300/20 to-violet-900/20"
+                                                    className="absolute -left-2 w-2 h-full rounded-xl border border-violet-900/20 bg-gradient-to-b from-violet-300/20 to-violet-900/20"
                                                     initial={false}
                                                 />
                                             </>
