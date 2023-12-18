@@ -9,6 +9,7 @@ import styles from '@/styles/nav.module.css'
 import { useWindowSize } from "@uidotdev/usehooks";
 import { useIsMounted } from "@/hooks/useIsMounted"
 import kebabCase from 'lodash/fp/kebabCase'
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
 type Tab = {
     href: string
@@ -44,7 +45,7 @@ export default function MainNav() {
         const scrollPosition = window.scrollY
         const headingList = Array.from(document.querySelectorAll('h1'))
         const headingIds = headingList.map((heading:any) => heading.id)
-        const headingPositions = headingList.map((heading:any) => heading.offsetTop)
+        const headingPositions = headingList.map((heading:any) => heading.offsetTop - 100)
         const headingIndex = headingPositions.findIndex((position:any) => scrollPosition < position)
         const activeHeadingId = headingIds[headingIndex - 1]
 
@@ -129,9 +130,12 @@ export default function MainNav() {
                 </Link>
             ))}
             {pathname === '/documentation' && (
+                <ScrollArea className={
+                    width! > 768 ? 'h-60' : 'w-full'
+                } >
                 <div className="flex flex-col gap-2">
                     <div className="flex flex-col gap-1">
-                        <div className="flex flex-col gap-1">
+                        <div className="flex md:flex-col gap-1">
                             {headings.map((heading:any) => (
                                 <Link
                                     href={`#${heading.id}`}
@@ -146,14 +150,14 @@ export default function MainNav() {
                                         }
                                     }
                                 >
-                                    <span className="z-10 text-sm font-medium">{heading.textContent}</span>
+                                    <span className="z-10 text-sm w-max font-medium">{heading.textContent}</span>
                                     {
                                         activeHeading === heading.id && (
                                             <>
                                                 <motion.div 
                                                     layout
                                                     layoutId="line"
-                                                    className="absolute -left-2 w-2 h-full rounded-xl border border-violet-900/20 bg-gradient-to-b from-violet-300/20 to-violet-900/20"
+                                                    className={`absolute z-50 md:-left-[0.5px] left-0 w-full h-2 bottom-[0.5px] md:bottom-0 md:w-2 md:h-full rounded-md border border-violet-900/20 bg-gradient-to-b from-violet-300/20 to-violet-900/20`}
                                                     initial={false}
                                                 />
                                             </>
@@ -164,6 +168,10 @@ export default function MainNav() {
                         </div>
                     </div>
                 </div>
+                <ScrollBar orientation={
+                    width! > 768 ? 'vertical' : 'horizontal'
+                }/>
+                </ScrollArea>
             )}
             <div className="flex h-fit w-full justify-end">
                 <a href="https://github.com/yousefelassal/swr-infinite-loading" className="group hover:scale-105 transition-all" target="_blank" rel="noopener noreferrer">
