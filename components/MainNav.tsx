@@ -131,7 +131,7 @@ export default function MainNav() {
             ))}
             {pathname === '/documentation' && (
                 <ScrollArea className={
-                    width! > 768 ? 'h-60' : 'w-full'
+                    width! > 768 ? 'max-h-60' : 'w-full'
                 } >
                 <div className="flex flex-col gap-2">
                     <div className="flex flex-col gap-1">
