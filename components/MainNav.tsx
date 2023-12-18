@@ -41,6 +41,20 @@ export default function MainNav() {
     }, [isMounted])
 
     useEffect(() => {
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY
+    
+            const currentHeading = headings.find((heading:any) => {
+                const headingTop = heading.offsetTop
+                const headingBottom = headingTop + heading.offsetHeight
+    
+                return scrollPosition >= headingTop && scrollPosition < headingBottom
+            })
+    
+            if(currentHeading) {
+                setActiveHeading(currentHeading.id)
+            }
+        }
         if(pathname === '/documentation') {
             const headingList = Array.from(document.querySelectorAll('h1'))
 
@@ -57,23 +71,7 @@ export default function MainNav() {
             }
         }
 
-    }, [pathname])
-
-    const handleScroll = () => {
-        const scrollPosition = window.scrollY
-
-        const currentHeading = headings.find((heading:any) => {
-            const headingTop = heading.offsetTop
-            const headingBottom = headingTop + heading.offsetHeight
-
-            return scrollPosition >= headingTop && scrollPosition < headingBottom
-        })
-
-        if(currentHeading) {
-            setActiveHeading(currentHeading.id)
-        }
-    }
-
+    }, [pathname, headings])
 
   const animateCss = () => {
     if(width! > 768) return
@@ -136,7 +134,6 @@ export default function MainNav() {
             {pathname === '/documentation' && (
                 <div className="flex flex-col gap-2">
                     <div className="flex flex-col gap-1">
-                        <span className="text-white font-medium">Table of Contents</span>
                         <div className="flex flex-col gap-1">
                             {headings.map((heading:any) => (
                                 <Link
@@ -152,14 +149,14 @@ export default function MainNav() {
                                         }
                                     }
                                 >
-                                    <span className="z-10 font-medium">{heading.textContent}</span>
+                                    <span className="z-10 text-sm font-medium">{heading.textContent}</span>
                                     {
                                         activeHeading === heading.id && (
                                             <>
                                                 <motion.div 
                                                     layout
-                                                    layoutId="mainNavBg"
-                                                    className="absolute w-full h-full rounded-xl border border-violet-900/20 bg-gradient-to-b from-violet-300/20 to-violet-900/20"
+                                                    layoutId="line"
+                                                    className="absolute -left-3 w-4 h-full rounded-xl border border-violet-900/20 bg-gradient-to-b from-violet-300/20 to-violet-900/20"
                                                     initial={false}
                                                 />
                                             </>
