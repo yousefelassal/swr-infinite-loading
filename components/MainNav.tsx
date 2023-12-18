@@ -8,6 +8,7 @@ import { HomeIcon, BookmarkIcon, CodeBracketIcon  } from "@heroicons/react/24/so
 import styles from '@/styles/nav.module.css'
 import { useWindowSize } from "@uidotdev/usehooks";
 import { useIsMounted } from "@/hooks/useIsMounted"
+import kebabCase from 'lodash/fp/kebabCase'
 
 type Tab = {
     href: string
@@ -19,6 +20,8 @@ type Tab = {
 export default function MainNav() {
   const [open, setOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [headings, setHeadings] = useState<any>([])
+  const [activeHeading, setActiveHeading] = useState<any>(null)
   const { width } = useWindowSize()
   const isMounted = useIsMounted()
   const pathname = usePathname()
@@ -36,6 +39,40 @@ export default function MainNav() {
         setMounted(true)
     }
     }, [isMounted])
+
+    useEffect(() => {
+        if(pathname === '/documentation') {
+            const headingList = Array.from(document.querySelectorAll('h1'))
+
+            headingList.forEach((heading:any) => {
+                const id = kebabCase(heading.textContent)
+                heading.id = id
+            })
+
+            setHeadings(headingList)
+            window.addEventListener('scroll', handleScroll)
+
+            return () => {
+                window.removeEventListener('scroll', handleScroll)
+            }
+        }
+
+    }, [pathname])
+
+    const handleScroll = () => {
+        const scrollPosition = window.scrollY
+
+        const currentHeading = headings.find((heading:any) => {
+            const headingTop = heading.offsetTop
+            const headingBottom = headingTop + heading.offsetHeight
+
+            return scrollPosition >= headingTop && scrollPosition < headingBottom
+        })
+
+        if(currentHeading) {
+            setActiveHeading(currentHeading.id)
+        }
+    }
 
 
   const animateCss = () => {
@@ -96,6 +133,44 @@ export default function MainNav() {
                     }
                 </Link>
             ))}
+            {pathname === '/documentation' && (
+                <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-1">
+                        <span className="text-white font-medium">Table of Contents</span>
+                        <div className="flex flex-col gap-1">
+                            {headings.map((heading:any) => (
+                                <Link
+                                    href={`#${heading.id}`}
+                                    key={heading.id}
+                                    className={`flex rounded-xl flex-col gap-1 relative items-start sm:text-lg justify-center p-4 ${activeHeading === heading.id ? 'text-white' : 'text-gray-300 hover:text-gray-100'} cursor-pointer transition-colors`}
+                                    onClick={
+                                        () => {
+                                            if(width! > 768) return
+                                            setTimeout(() => {
+                                                setOpen(false)
+                                            }, 700)
+                                        }
+                                    }
+                                >
+                                    <span className="z-10 font-medium">{heading.textContent}</span>
+                                    {
+                                        activeHeading === heading.id && (
+                                            <>
+                                                <motion.div 
+                                                    layout
+                                                    layoutId="mainNavBg"
+                                                    className="absolute w-full h-full rounded-xl border border-violet-900/20 bg-gradient-to-b from-violet-300/20 to-violet-900/20"
+                                                    initial={false}
+                                                />
+                                            </>
+                                        )
+                                    }
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
             <div className="flex h-fit w-full justify-end">
                 <a href="https://github.com/yousefelassal/swr-infinite-loading" className="group hover:scale-105 transition-all" target="_blank" rel="noopener noreferrer">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 24 24">
